@@ -4,6 +4,9 @@
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
+Packages/
+UnityPackageManager/
+
 
 # Visual Studio cache directory
 .vs/
