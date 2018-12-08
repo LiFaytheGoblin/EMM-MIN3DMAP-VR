@@ -10,7 +10,7 @@ using System.IO;
 // "Saving and Loading Player Game Data in Unity" by Zdravko Jakupec, 21.10.2015
 // Accessed 08.12.2018
 // Save and Load is not only present in this class (DataController),
-// but also in Node and NodeData.
+// but also in Map and NodeData.
 
 public class DataController : MonoBehaviour
 {
@@ -36,6 +36,7 @@ public class DataController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         
     }
 
@@ -51,7 +52,7 @@ public class DataController : MonoBehaviour
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream saveFile = File.Create("Saves/save.binary");
 
-        //data = Node.Instance.data;
+        //data = Map.Instance.data;
 
         formatter.Serialize(saveFile, data);
 
@@ -73,7 +74,6 @@ public class DataController : MonoBehaviour
 
             saveFile.Close();
         }
-
         loading = true;
         return data;
     }
