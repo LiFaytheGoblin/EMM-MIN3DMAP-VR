@@ -16,6 +16,8 @@ public class Node : MonoBehaviour {
     //public Node parent;
     //public List<Node> children;
 
+    public GameObject node;
+
     // Use this for initialization
     void Start () {
         loadData();
@@ -61,15 +63,37 @@ public class Node : MonoBehaviour {
     {
         /*
          This function loads the received data into the Node object's property variables.
+         It then initiates the rebuild of the map based on the new data.
          */
         if (DataController.Instance.loading)
         {
-            transform.position = new Vector3(
-                d.xPos,
-                d.yPos,
-                d.zPos);
-
+            transform.position = new Vector3(d.xPos, d.yPos, d.zPos);
             DataController.Instance.loading = false;
         }
+        rebuildMap();
+    }
+
+    void rebuildMap()
+    {
+        /*
+         This function deletes the current map and calls the 
+         recursive node-creation function
+         */
+        deleteMap();
+        createNode(DataController.Instance.data);
+    }
+
+    void createNode(NodeData d)
+    {
+        /*
+         This recursive function traverses the tree of 
+         nodes and creates a map from it.
+         */
+        currentPosition = new Vector3(d.xPos, d.yPos, d.zPos);
+        currentNode = Instantiate(node, currentPosition, Quaternion.identity);
+        currentNode.id = d.id;
+        currentNode.text = d.text;
+        //for child in children:
+        // createNode(child)
     }
 }
