@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
 
-    public GameObject parent = null;
-    public List<GameObject> children = new List<GameObject>();
-    public string text = "Unity";
-
+    public int id;
+    public string text;
+    public int parentId;
+    public List<int> childrenIds;
 
     // Use this for initialization
     void Start () {
