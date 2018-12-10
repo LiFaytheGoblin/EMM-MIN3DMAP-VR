@@ -6,6 +6,8 @@ public class Node : MonoBehaviour {
 
     public int id;
     public string text;
+    public int parentId;
+    public List<int> childrenIds;
 
     // Use this for initialization
     void Start () {

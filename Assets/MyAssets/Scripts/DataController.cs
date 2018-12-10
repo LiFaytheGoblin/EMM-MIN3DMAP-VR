@@ -20,7 +20,7 @@ public class DataController : MonoBehaviour
      is to save the Min3dmap to and from a file.
      */
     public static DataController Instance;
-    public NodeData data = new NodeData();
+    public List<NodeData> data = new List<NodeData>();
     public bool loading = false;
 
     void Awake()
@@ -36,8 +36,6 @@ public class DataController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        
     }
 
     public void Save()
@@ -59,7 +57,7 @@ public class DataController : MonoBehaviour
         saveFile.Close();
     }
 
-    public NodeData Load()
+    public List<NodeData> Load()
     {
         /*
          This function will load the Min3dmap from the file 
@@ -70,7 +68,7 @@ public class DataController : MonoBehaviour
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream saveFile = File.Open("Saves/save.binary", FileMode.Open);
 
-            data = (NodeData)formatter.Deserialize(saveFile);
+            data = (List<NodeData>)formatter.Deserialize(saveFile);
 
             saveFile.Close();
         }

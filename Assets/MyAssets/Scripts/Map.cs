@@ -12,14 +12,11 @@ public class Map : MonoBehaviour {
      */
     public GameObject node;
 
-    public int id;
-    public string text;
-    //public Node parent;
-    //public List<Node> children;
-
+    public List<NodeData> localData;
     
     // Use this for initialization
     void Start () {
+        localData = new List<NodeData>();
         loadData();
     }
 	
@@ -42,11 +39,7 @@ public class Map : MonoBehaviour {
         /*
          This function updates the data in DataController.
          */
-        DataController.Instance.data.id = id;
-        DataController.Instance.data.text = text;
-        DataController.Instance.data.xPos = transform.position.x;
-        DataController.Instance.data.yPos = transform.position.y;
-        DataController.Instance.data.zPos = transform.position.z;
+        DataController.Instance.data = localData;
     }
 
     void loadData()
@@ -57,11 +50,11 @@ public class Map : MonoBehaviour {
          loading the received data into the Node object's property variables.
          */
          
-        NodeData newData = DataController.Instance.Load();
+        List<NodeData> newData = DataController.Instance.Load();
         updateLocalData(newData); //feeding the function as a param will hopefully make loadData wait for the results.
     }
 
-    void updateLocalData(NodeData d)
+    void updateLocalData(List<NodeData> d)
     {
         /*
          This function loads the received data into the Node object's property variables.
@@ -69,10 +62,9 @@ public class Map : MonoBehaviour {
          */
         if (DataController.Instance.loading)
         {
-            transform.position = new Vector3(d.xPos, d.yPos, d.zPos);
             DataController.Instance.loading = false;
+            rebuildMap();
         }
-        rebuildMap();
     }
 
     void rebuildMap()
@@ -90,20 +82,26 @@ public class Map : MonoBehaviour {
         /*
          This function deletes the complete map.
          */
+        //find root node
+        //call delete
+        //call delete function of node with id 0
     }
 
-    void createNode(NodeData d)
+    void createNode(List<NodeData> d)
     {
         /*
          This recursive function traverses the tree of 
          nodes and creates a map from it.
          */
          // always create at least one node
-        Vector3 currentPosition = new Vector3(d.xPos, d.yPos, d.zPos);
-        GameObject currentNode = Instantiate(node, currentPosition, Quaternion.identity);
-        currentNode.GetComponent<Node>().id = d.id;
-        currentNode.GetComponent<Node>().text = d.text;
-        // for child in children:
-        // createNode(child)
+         foreach (NodeData n in d)
+        {
+            Vector3 currentPosition = new Vector3(n.xPos, n.yPos, n.zPos);
+            GameObject currentNode = Instantiate(node, currentPosition, Quaternion.identity);
+            currentNode.GetComponent<Node>().id = n.id;
+            currentNode.GetComponent<Node>().text = n.text;
+            currentNode.GetComponent<Node>().parentId = n.parentId;
+            currentNode.GetComponent<Node>().childrenIds = n.childrenIds;
+        }
     }
 }
