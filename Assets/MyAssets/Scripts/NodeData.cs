@@ -16,6 +16,6 @@ public class NodeData {
     public float xPos;
     public float yPos;
     public float zPos;
-    //public NodeData parent;
-    //public List<NodeData> children;
+    public int parentId;
+    public List<int> childrenIds;
 }
