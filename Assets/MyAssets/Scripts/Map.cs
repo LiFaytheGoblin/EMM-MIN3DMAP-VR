@@ -19,10 +19,11 @@ public class Map : MonoBehaviour {
         localData = new List<NodeData>();
         loadData();
     }
-	
-	void Update () {
-		
-	}
+
+    void OnDestroy()
+    {
+        initSaving();
+    }
 
     void initSaving()
     {
@@ -59,12 +60,33 @@ public class Map : MonoBehaviour {
         /*
          This function loads the received data into the Node object's property variables.
          It then initiates the rebuild of the map based on the new data.
+         However, in the special case that the map is still completely empty,
+         it will first create the root node.
          */
         if (DataController.Instance.loading)
         {
             DataController.Instance.loading = false;
-            rebuildMap();
+            if (d.Count > 0) rebuildMap();
+            else createRoot();
         }
+    }
+
+    void createRoot()
+    {
+        /*
+         This function creates the root node. It's id is 0 and it has no parent. It does not yet have children.
+         After creating the root node, the map will save.
+         */
+        NodeData root = new NodeData();
+        root.xPos = 0;
+        root.yPos = 0;
+        root.zPos = 0;
+        root.id = 0;
+        root.text = "Unity";
+        List<NodeData> l = new List<NodeData>();
+        l.Add(root);
+        createNode(l);
+        initSaving();
     }
 
     void rebuildMap()
@@ -82,9 +104,8 @@ public class Map : MonoBehaviour {
         /*
          This function deletes the complete map.
          */
-        //find root node
-        //call delete
-        //call delete function of node with id 0
+        //find root node (node with id 0)
+        //call delete function root
     }
 
     void createNode(List<NodeData> d)
