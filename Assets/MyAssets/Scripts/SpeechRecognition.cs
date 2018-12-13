@@ -43,7 +43,10 @@ public class SpeechRecognition : MonoBehaviour {
         /*
          This function starts the recognizer.
          */
-        recognizer.Start();
+        if (recognizer.Status != SpeechSystemStatus.Running)
+        {
+            recognizer.Start();
+        }
     }
 
     public void stopRecognizer()
@@ -60,26 +63,25 @@ public class SpeechRecognition : MonoBehaviour {
     private void onDictationResult(string text, ConfidenceLevel confidence)
     {
         /*
-         When dictation results have been received, they are sent to the node
+         When dictation results have been received, they are sent to the node.
          */
-        Debug.Log(text);
+        Debug.Log(text); //TODO: remove after testing
         node.send(text);
-        // error handling?
     }
 
     private void onDictationComplete(DictationCompletionCause cause)
     {
-        /*
+        /* If an error occurs, the node is being messaged about it.
          */
         if (cause != DictationCompletionCause.Complete)
-            Debug.LogErrorFormat("Dictation completed unsuccessfully: {0}.", cause);
+            node.error();
     }
 
     void onDictationError(string error, int hresult)
     {
-        /*
+        /* If an error occurs, the node is being messaged about it.
          */
-        Debug.Log(error);
+        node.error();
     }
 
 

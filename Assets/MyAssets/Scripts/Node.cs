@@ -12,7 +12,7 @@ public class Node : MonoBehaviour {
     public List<int> childrenIds;
 
     private SpeechRecognition recorder;
-    public bool listeningForName;
+    public bool listeningForName; //helper to know when we give responsability to recorder
 
     // Use this for initialization
     void Start () {
@@ -23,13 +23,52 @@ public class Node : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //for testing functions:
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space")) initRename();
+    }
+
+    void goToPresentationMode()
+    {
+        /* Switch to the presentation mode:
+         * position user directly in front of node (on same same height, x, ~1 meter y)
+         */
+    }
+
+    void leavePresentationMode()
+    {
+        /* Leave the presentation mode:
+         * transport user back to where they were
+         */
+    }
+
+    public void send(string t)
+    {
+        /* Using this function others can send text to
+         * this node. The node reacts depending on what it's
+         * current state is. States can be:
+         * listeningForName -> call rename
+         */
+        if (listeningForName)
         {
-            initRename();
+            listeningForName = false;
+            rename(t);
         }
     }
 
-    /* RENAME */
+    public void error()
+    {
+        /* Using this function others can send errors to
+         * this node. The node reacts depending on what it's
+         * current state is. States can be:
+         * listeningForName -> call handleRenameError
+         */
+        if (listeningForName)
+        {
+            listeningForName = false;
+            handleRenameError("Sorry, that didn't work.");
+        }
+    }
+
+    /* R E N A M E */
     public void initRename()
     {
         /* 
@@ -52,71 +91,47 @@ public class Node : MonoBehaviour {
          * It does create a few prompts for users 
          * to have full control over the renaming process.
          */
-        listeningForName = false;
         bool textToLong = false;
-        if(textToLong)
+        if (textToLong) handleRenameError("Text too long!");
+        else
         {
-            //Prompt: "Text too long!" O | X
-            String answer = "retry";
-            if (answer == "retry")
+            // TODO: createPrompt(t, options = ["abort", "retry", "ok"])
+            string answer2 = "ok";
+            if (answer2 == "ok")
             {
+                text = t;
+                recorder.stopRecognizer();
+            }
+            else if (answer2 == "retry")
+            {
+                recorder.stopRecognizer();
                 initRename();
             }
-            else
-            {
-                exitRenameView();
-                return;
-            }
+            else exitRenameView();
         }
-        // Prompt: "your text" X | O | V
-        string answer = "retry";
-        if (answer = "ok")
+    }
+
+    private void handleRenameError(string message)
+    {
+        /*
+         * If something went wrong with renaming, for instance if the text was too long or 
+         * speech recognition didn't work, display a text and a user dialog.
+         */
+        // TODO: createPrompt(message, options = ["retry", "abort"])
+        string answer1 = "retry";
+        if (answer1 == "retry")
         {
-            text = t;
-            stopRecognizer();
-        }
-        else if (answer = "retry")
-        {
+            recorder.stopRecognizer();
             initRename();
-        } else {
-            exitRenameView();
         }
+        else exitRenameView();
     }
-
-    public void send(string t)
-    {
-        /* Using this function others can send text to
-         * this node. The node reacts depending on what it's
-         * current state is. States can be:
-         * listeningForName -> call rename
-         */
-        if (node.listeningForName)
-        {
-            rename(t);
-        }
-    }
-
-    void goToPresentationMode()
-    {
-        /* Switch to the presentation mode:
-         * position user directly in front of node (on same same height, x, ~1 meter y)
-         */
-        presentationMode = true;
-    }
-
-    void leavePresentationMode()
-    {
-        /* Leave the presentation mode:
-         * transport user back to where they were
-         */
-        presentationMode = false;
-    }
-
+    
     void showRenameView()
     {
         /* Change look of the node that fits the renaming process.
          */
-        goToPresentationMode;
+        goToPresentationMode();
         // show microphone symbol
     }
 
@@ -124,6 +139,9 @@ public class Node : MonoBehaviour {
     {
         /* Change look back from rename view.
          */
-        leavePresentationMode;
+        recorder.stopRecognizer();
+        leavePresentationMode();
     }
+
+    /* E N D   O F    R E N A M E */
 }
