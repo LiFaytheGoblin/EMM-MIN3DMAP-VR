@@ -288,8 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   node: {fileID: 1885264354301550, guid: 5aff003d1feb8c945b23021320c03012, type: 2}
-  id: 0
-  text: 
+  localData: []
 --- !u!4 &1822126987
 Transform:
   m_ObjectHideFlags: 0
@@ -315,9 +314,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+  - id: 0
     text: 
     xPos: 0
     yPos: 0
     zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
   loading: 0
