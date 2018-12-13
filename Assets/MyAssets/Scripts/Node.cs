@@ -22,8 +22,7 @@ public class Node : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //for testing functions:
-        if (Input.GetKeyDown("space")) initRename();
+        if (Input.GetKeyDown("space")) initRename(); //TODO: remove after testing
     }
 
     void goToPresentationMode()
