@@ -1,0 +1,15 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.emmmin3dmapvr.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "strings": {
+        "en_us": {
+          "name": "EMM-MIN3DMAP-VR [Testing]"
+        }
+      }
+    }
+  ]
+}
