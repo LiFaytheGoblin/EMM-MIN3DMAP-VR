@@ -67,8 +67,6 @@ public class Node : MonoBehaviour {
          */
         if (listeningForName)
         {
-            text = tmpText;
-            UIText.text = text;
             listeningForName = false;
             handleRenameError("Sorry, that didn't work.");
         }
@@ -99,12 +97,12 @@ public class Node : MonoBehaviour {
          * It does create a few prompts for users 
          * to have full control over the renaming process.
          */
-        bool textToLong = false;
+        bool textToLong = t.Length > 10; //TODO: set the actual length we want / need
         if (textToLong) handleRenameError("Text too long!");
         else
         {
             UIText.text = t; //show preview of text
-            // TODO: createPrompt(t, options = ["abort", "retry", "ok"])
+            // TODO: createPrompt(t, options = ["abort", "retry", "ok"]) and wait for user answer
             string answer2 = "ok";
             if (answer2 == "ok")
             {
@@ -125,7 +123,9 @@ public class Node : MonoBehaviour {
          * If something went wrong with renaming, for instance if the text was too long or 
          * speech recognition didn't work, display a text and a user dialog.
          */
-        // TODO: createPrompt(message, options = ["retry", "abort"])
+        text = tmpText; //make sure text doesn't get messed up
+        UIText.text = message; //display error message
+        // TODO: createPrompt(message, options = ["retry", "abort"]) and wait for user answer
         string answer1 = "retry";
         if (answer1 == "retry")
         {
