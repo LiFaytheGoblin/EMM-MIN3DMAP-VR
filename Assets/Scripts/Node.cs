@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
 
+    public int id;
+    public int parentId;
+    public List<int> childrenIds;
+
     public GameObject parent = null;
  //   public LineRenderer lineToParent;
     public List<GameObject> children = new List<GameObject>();
