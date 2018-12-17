@@ -8,6 +8,9 @@ using UnityEngine.UI;
  The speech recognition was implemented with help of the article "Speech Recognition in Unity3d" by 
  Gyanendu Shekhar on  "Gyanendu Shekhar's Blog" https://gyanendushekhar.com/2016/10/11/speech-recognition-in-unity3d-windows-speech-api/ 
  (published 11.10.2016, accessed 13.12.2018)
+
+The pling sound is "Pling Sound" by KevanGC published under Public Domain on SoundBible http://soundbible.com/1645-Pling.html
+(published 12.02.2010, accessed 17.12.2018)
  */
 
 public class SpeechRecognition : MonoBehaviour {
