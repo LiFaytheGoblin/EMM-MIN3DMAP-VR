@@ -11,6 +11,9 @@ public class Node : MonoBehaviour {
     public int parentId;
     public List<int> childrenIds;
 
+    private string tmpText;
+    private Text UIText; //The text Canvas component
+
     private SpeechRecognition recorder;
     public bool listeningForName; //helper to know when we give responsability to recorder
 
@@ -18,6 +21,8 @@ public class Node : MonoBehaviour {
     void Start () {
         recorder = this.gameObject.GetComponent<SpeechRecognition>();
         listeningForName = false;
+        UIText = gameObject.GetComponentInChildren<Text>();
+        UIText.text = text;
     }
 	
 	// Update is called once per frame
@@ -62,6 +67,8 @@ public class Node : MonoBehaviour {
          */
         if (listeningForName)
         {
+            text = tmpText;
+            UIText.text = text;
             listeningForName = false;
             handleRenameError("Sorry, that didn't work.");
         }
@@ -76,8 +83,10 @@ public class Node : MonoBehaviour {
          * and starts the speech recognition.
          */
         if (!listeningForName) {
-            showRenameView();
             listeningForName = true;
+            showRenameView();
+            tmpText = text; //save the old text
+            UIText.text = text;
             recorder.startRecognizer();
         }
     }
@@ -94,19 +103,19 @@ public class Node : MonoBehaviour {
         if (textToLong) handleRenameError("Text too long!");
         else
         {
+            UIText.text = t; //show preview of text
             // TODO: createPrompt(t, options = ["abort", "retry", "ok"])
             string answer2 = "ok";
             if (answer2 == "ok")
             {
-                text = t;
-                recorder.stopRecognizer();
+                exitRenameView(t); //exit and register new text
             }
             else if (answer2 == "retry")
             {
-                recorder.stopRecognizer();
+                exitRenameView(tmpText); //exit and register old text
                 initRename();
             }
-            else exitRenameView();
+            else exitRenameView(tmpText);
         }
     }
 
@@ -120,10 +129,10 @@ public class Node : MonoBehaviour {
         string answer1 = "retry";
         if (answer1 == "retry")
         {
-            recorder.stopRecognizer();
+            exitRenameView(tmpText);
             initRename();
         }
-        else exitRenameView();
+        else exitRenameView(tmpText);
     }
     
     void showRenameView()
@@ -134,10 +143,13 @@ public class Node : MonoBehaviour {
         // show microphone symbol
     }
 
-    void exitRenameView()
+    void exitRenameView(string newText)
     {
         /* Change look back from rename view.
          */
+        text = newText;
+        UIText.text = newText;
+        tmpText = ""; 
         recorder.stopRecognizer();
         leavePresentationMode();
     }

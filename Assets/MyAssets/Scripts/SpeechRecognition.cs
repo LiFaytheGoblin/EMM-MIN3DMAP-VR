@@ -26,6 +26,8 @@ public class SpeechRecognition : MonoBehaviour {
     private DictationRecognizer recognizer;
     private Node node;
 
+    private AudioSource pling;
+
     void Awake () {
         node = this.gameObject.GetComponent<Node>();
 
@@ -36,6 +38,8 @@ public class SpeechRecognition : MonoBehaviour {
         recognizer.DictationResult += onDictationResult;
         recognizer.DictationComplete += onDictationComplete;
         recognizer.DictationError += onDictationError;
+
+        pling = GetComponent<AudioSource>();
     }
 
     public void startRecognizer()
@@ -45,6 +49,7 @@ public class SpeechRecognition : MonoBehaviour {
          */
         if (recognizer.Status != SpeechSystemStatus.Running)
         {
+            pling.Play(0);
             recognizer.Start();
         }
     }
@@ -56,6 +61,7 @@ public class SpeechRecognition : MonoBehaviour {
          */
         if (recognizer != null  && recognizer.Status == SpeechSystemStatus.Running) //Status can be "Running" (green), "Stopped" (grey), "Failed" (orange) -> Use for user feedback
         {
+            pling.Play(0);
             recognizer.Stop();
         }
     }
