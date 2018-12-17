@@ -644,7 +644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1483840017359746
 GameObject:
   m_ObjectHideFlags: 1
@@ -707,6 +707,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1509799802557074
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4118413472102402}
+  - component: {fileID: 114974095356870152}
+  m_Layer: 0
+  m_Name: Interaction Hand (Left)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1517126938827714
 GameObject:
   m_ObjectHideFlags: 1
@@ -733,6 +749,38 @@ GameObject:
   - component: {fileID: 4858239297066712}
   m_Layer: 0
   m_Name: L_ring_b
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1580849235456704
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4073531373467702}
+  - component: {fileID: 114138704988521814}
+  m_Layer: 0
+  m_Name: Interaction Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1584146172186304
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4631834420448436}
+  - component: {fileID: 114385915693702040}
+  m_Layer: 0
+  m_Name: Interaction Hand (Right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1101,7 +1149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1899330336902216
 GameObject:
   m_ObjectHideFlags: 1
@@ -1248,6 +1296,21 @@ Transform:
   m_Father: {fileID: 4154640902429440}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4073531373467702
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1580849235456704}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.074, z: -0.074}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4118413472102402}
+  - {fileID: 4631834420448436}
+  m_Father: {fileID: 4972151868136918}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4077622513881138
 Transform:
   m_ObjectHideFlags: 1
@@ -1302,6 +1365,19 @@ Transform:
   - {fileID: 4811965642750808}
   m_Father: {fileID: 4399368775692480}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4118413472102402
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509799802557074}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4073531373467702}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4143737966929950
 Transform:
@@ -1424,7 +1500,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4972151868136918}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4296228320980158
 Transform:
@@ -1779,7 +1855,7 @@ Transform:
   - {fileID: 4316259555795838}
   - {fileID: 4516182476899292}
   m_Father: {fileID: 4972151868136918}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4562488392307462
 Transform:
@@ -1874,6 +1950,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4542840800640698}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4631834420448436
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1584146172186304}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4073531373467702}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4645306415704414
 Transform:
@@ -2199,7 +2288,7 @@ Transform:
   - {fileID: 4529254834352322}
   - {fileID: 4154640902429440}
   m_Father: {fileID: 4972151868136918}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4905149155408218
 Transform:
@@ -2238,6 +2327,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4073531373467702}
   - {fileID: 4891471791157982}
   - {fileID: 4555694259681140}
   - {fileID: 4288708621636330}
@@ -2519,7 +2609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseAction: {fileID: 11400000, guid: 9bb47b3aad1d2d24c8c92bc9c924d585, type: 2}
+  poseAction: {fileID: 11400000, guid: 1e921c45bef028c49bb3c555458c8b62, type: 2}
   inputSource: 2
   origin: {fileID: 0}
   onTransformUpdated:
@@ -2589,7 +2679,33 @@ MonoBehaviour:
   pointer: 0
   thump: 0
   isNode: 0
-  toOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &114138704988521814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1580849235456704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0625e574c0d47a241b7dfc7a8c67ca2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionControllers:
+    _values:
+    - {fileID: 114974095356870152}
+    - {fileID: 114385915693702040}
+  hoverActivationRadius: 0.2
+  touchActivationRadius: 0.075
+  _autoGenerateLayers: 1
+  _templateLayer:
+    layerIndex: 0
+  _interactionLayer:
+    layerIndex: 9
+  _interactionNoContactLayer:
+    layerIndex: 10
+  _contactBoneLayer:
+    layerIndex: 11
+  _drawControllerRuntimeGizmos: 0
 --- !u!114 &114163364739688194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2820,6 +2936,24 @@ MonoBehaviour:
   scaleLastFingerBone: 1
   modelFingerPointing: {x: -1, y: 0, z: 0}
   modelPalmFacing: {x: 0, y: 1, z: 0}
+--- !u!114 &114385915693702040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1584146172186304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29207d17cdd06e84d9fecbdef2401c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114138704988521814}
+  _hoverEnabled: 1
+  _contactEnabled: 1
+  _graspingEnabled: 1
+  _leapProvider: {fileID: 114123515910864822}
+  _handDataMode: 1
+  enabledPrimaryHoverFingertips: 0101010000
 --- !u!114 &114443958710873494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2838,6 +2972,7 @@ MonoBehaviour:
   IsPinching: 0
   PinchingPOS: {x: 0, y: 0, z: 0}
   distanse: 0.5
+  distanseBetweenFingers: 0.1
 --- !u!114 &114444848146366102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3176,7 +3311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseAction: {fileID: 11400000, guid: 9bb47b3aad1d2d24c8c92bc9c924d585, type: 2}
+  poseAction: {fileID: 11400000, guid: 1e921c45bef028c49bb3c555458c8b62, type: 2}
   inputSource: 1
   origin: {fileID: 0}
   onTransformUpdated:
@@ -3417,6 +3552,24 @@ MonoBehaviour:
   MinimumExtendedCount: 0
   MaximumExtendedCount: 2
   ShowGizmos: 1
+--- !u!114 &114974095356870152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1509799802557074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29207d17cdd06e84d9fecbdef2401c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114138704988521814}
+  _hoverEnabled: 1
+  _contactEnabled: 1
+  _graspingEnabled: 1
+  _leapProvider: {fileID: 114123515910864822}
+  _handDataMode: 0
+  enabledPrimaryHoverFingertips: 0101010000
 --- !u!114 &114982334805461066
 MonoBehaviour:
   m_ObjectHideFlags: 1

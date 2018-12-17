@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Leap;
 using Leap.Unity;
+using System;
 
 public class GesturesManager : MonoBehaviour
 {
@@ -23,9 +24,10 @@ public class GesturesManager : MonoBehaviour
     public bool pointer = false;
     public bool thump = false;
     public bool isNode = false;
-    public Vector3 toOffset;
+    //  public Vector3 toOffset;
 
     LeapServiceProvider provider;
+    DateTime lastTransport = DateTime.Now;
 
 
     // Use this for initialization
@@ -51,52 +53,70 @@ public class GesturesManager : MonoBehaviour
                     Vector3 to;
                     if (isNode)
                     {
-                         to = handtoNode.transform.position;
+                        to = handtoNode.transform.position;
                     }
                     else
                     {
-                         to = handtoGround.transform.position;
+                        to = handtoGround.transform.position;
                     }
-                    RaycastHit hit;
-                    if (Physics.Raycast(from, to - from, out hit))
+                    RaycastHit[] hits;
+                    hits = Physics.RaycastAll(from, to - from);
+                    if (hits.Length > 0)
                     {
-                      
-                       
-                        if (hit.transform.tag == "Ground")
+                        bool hitFound = false;
+                        for (int i = 0; i < hits.Length; i++)
                         {
-                            Vector3 hitPos = hit.point;
-                            hitPos.y = 0;
-                            cylinder.SetActive(true);
-                            cylinder.transform.position = hitPos;
-                            if (thump)
+                            RaycastHit hit = hits[i];
+                            if (hit.transform.tag == "Node")
                             {
-                                VRCamera.transform.position = hitPos;
-
+                                hitFound = true;
+                                if (thump)
+                                {
+                                    ND.selectNode(hit.transform.parent.gameObject);
+                                }
+                                Debug.DrawRay(from, to - from, Color.yellow);
+                                drawLine(from, hit.point, pointerColorNode);
+                                cylinder.SetActive(false);
                             }
-                            Debug.DrawRay(from, to - from, Color.magenta);
-                            drawLine(from, hit.point, pointerColorGround);
-                        }
-                        else if (hit.transform.tag == "Node")
-                        {
-                            if (thump)
+                            else if(hit.transform.tag == "Ground" && !hitFound)
                             {
-                                ND.selectNode(hit.transform.parent.gameObject);
-                                Debug.Log("Note with Thump");
+                                hitFound = true;
+                                Debug.Log("Ground hit");
+                                Vector3 hitPos = hit.point;
+                                hitPos.y = 0;
+                                cylinder.SetActive(true);
+                                cylinder.transform.position = hitPos;
+                                if (thump)
+                                {
+                                    var seconds = (DateTime.Now - lastTransport).TotalSeconds;
+                                    if (seconds > 3)
+                                    {
+                                        VRCamera.transform.position = hitPos;
+                                        lastTransport = DateTime.Now;
+                                    }
+                                }
+                                Debug.DrawRay(from, to - from, Color.magenta);
+                                drawLine(from, hit.point, pointerColorGround);
                             }
-                            Debug.DrawRay(from, to - from, Color.yellow);
-                            drawLine(from, hit.point, pointerColorNode);
-                            cylinder.SetActive(false);
+                            else
+                            {
+                                //  Debug.Log("else hit");
+                                //  Debug.Log(hit.transform.name);
+                                //   Debug.DrawRay(from, to - from, Color.white);
+                                //  drawLine(from, to, pointerColor);
+                                //   cylinder.SetActive(false);
+                            }
                         }
-                        else
+                        if (!hitFound)
                         {
                             Debug.DrawRay(from, to - from, Color.white);
                             drawLine(from, to, pointerColor);
-                                cylinder.SetActive(false);
-                            }
+                            cylinder.SetActive(false);
+                        }
                     }
                     else
                     {
-                        Debug.DrawRay(from, to - from, Color.white);
+                         Debug.DrawRay(from, to - from, Color.white);
                         drawLine(from, to, pointerColor);
                         cylinder.SetActive(false);
                     }

@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f260935093f73f241bfaa1578e5e5506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportAction: {fileID: 11400000, guid: 786d4095f00f9f44c92746ac71851c8a, type: 2}
+  teleportAction: {fileID: 11400000, guid: f0a0c4d4eb972fe40a4f40d1c6aa3db4, type: 2}
   traceLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

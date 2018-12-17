@@ -5,9 +5,11 @@ using UnityEngine;
 public class Node : MonoBehaviour {
 
     public GameObject parent = null;
+ //   public LineRenderer lineToParent;
     public List<GameObject> children = new List<GameObject>();
     public string text = "Unity";
     public GameObject cube;
+
 
     private Transform camera;
 
@@ -26,5 +28,14 @@ public class Node : MonoBehaviour {
         cube.GetComponent<Renderer>().material = m;
     }
 
-  
+    public void rePostion()
+    {
+        foreach (GameObject node in children)
+        {
+            node.GetComponent<LineRenderer>().SetPosition(0, this.transform.position);
+        }
+        this.GetComponent<LineRenderer>().SetPosition(1, this.transform.position);
+    }
+
+
 }

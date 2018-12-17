@@ -15,6 +15,7 @@ public class CreateNode : MonoBehaviour {
     public bool IsPinching = false;
     public Vector3 PinchingPOS;
     public float distanse = 1.0f;
+    public float distanseBetweenFingers = 1.0f;
 
     List<GameObject> Nodes = new List<GameObject>();
     LeapServiceProvider provider;
@@ -51,8 +52,10 @@ public class CreateNode : MonoBehaviour {
                 }
                 else 
                 {
-                    node.transform.parent = ND.NodeContainer.transform;
+                    ND.selectedNode.GetComponent<Node>().children.Add(node);
+                    node.GetComponent<Node>().parent = ND.selectedNode;
                     createLine(node);
+                    node.transform.parent = ND.NodeContainer.transform;
                 }
                 Nodes.Add(node);
                 prefabCreated = true;
@@ -61,18 +64,20 @@ public class CreateNode : MonoBehaviour {
         }
     }
 
-    void createLine(GameObject newNode)
+    LineRenderer createLine(GameObject newNode)
     {
         if(ND.selectedNode != null)
         {
-            GameObject go = new GameObject();
-            LineRenderer line = go.AddComponent<LineRenderer>();
+           // GameObject go = new GameObject();
+            LineRenderer line = newNode.AddComponent<LineRenderer>();
             line.startWidth = .01f;
             line.endWidth = .01f;
             line.material = lineColor ;
             line.SetPosition(0, ND.selectedNode.transform.position);
             line.SetPosition(1, newNode.transform.position);
+            return line;
         }
+        return null;
     }
 
     bool canCreate()
@@ -116,8 +121,11 @@ public class CreateNode : MonoBehaviour {
         {
             if (RightHand.IsPinching() && LeftHand.IsPinching())
             {
-                PinchingPOS =  Vector3.Lerp(RightHand.Fingers[0].TipPosition.ToVector3(), LeftHand.Fingers[0].TipPosition.ToVector3(), 0.5f);
-             //   PinchingPOS.x = PinchingPOS.x + 1f;
+                float distance = Vector3.Distance(RightHand.Fingers[0].TipPosition.ToVector3(), LeftHand.Fingers[0].TipPosition.ToVector3());
+                Debug.Log(distance);
+                if (distanseBetweenFingers > distance)
+                PinchingPOS = Vector3.Lerp(RightHand.Fingers[0].TipPosition.ToVector3(), LeftHand.Fingers[0].TipPosition.ToVector3(), 0.5f);
+                //   PinchingPOS.x = PinchingPOS.x + 1f;
                 IsPinching = true;
              }
             else 

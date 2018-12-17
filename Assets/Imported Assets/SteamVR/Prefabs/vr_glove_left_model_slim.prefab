@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f6c0d7b5a00aa4a8d38a09a0480032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonAction: {fileID: 11400000, guid: a78e40fc84485434092c32d711554d3e, type: 2}
+  skeletonAction: {fileID: 11400000, guid: 267755fbad5e9af4abed47a0c5c12225, type: 2}
   inputSource: 1
   rangeOfMotion: 0
   skeletonRoot: {fileID: 4000010709239554}
