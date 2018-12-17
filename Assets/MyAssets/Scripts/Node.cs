@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Node : MonoBehaviour {
 
@@ -139,7 +140,7 @@ public class Node : MonoBehaviour {
         initRename();
     }
 
-    private void oFunction()
+    private void xFunction()
     {
         exitRenameView(tmpText);
     }
