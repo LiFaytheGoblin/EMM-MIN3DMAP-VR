@@ -12,17 +12,27 @@ public class Node : MonoBehaviour {
     public List<int> childrenIds;
 
     private string tmpText;
+    private string newText;
     private Text UIText; //The text Canvas component
 
     private SpeechRecognition recorder;
     public bool listeningForName; //helper to know when we give responsability to recorder
 
+    private UnityAction vAction;
+    private UnityAction xAction;
+    private UnityAction oAction;
+
     // Use this for initialization
     void Start () {
-        recorder = this.gameObject.GetComponent<SpeechRecognition>();
         listeningForName = false;
         UIText = gameObject.GetComponentInChildren<Text>();
         UIText.text = text;
+
+        vAction = new UnityAction(vFunction);
+        xAction = new UnityAction(xFunction);
+        oAction = new UnityAction(oFunction);
+
+        recorder = this.gameObject.GetComponent<SpeechRecognition>();
     }
 	
 	// Update is called once per frame
@@ -97,23 +107,13 @@ public class Node : MonoBehaviour {
          * It does create a few prompts for users 
          * to have full control over the renaming process.
          */
-        bool textToLong = t.Length > 10; //TODO: set the actual length we want / need
+        newText = t;
+        bool textToLong = newText.Length > 10; //TODO: set the actual length we want / need
         if (textToLong) handleRenameError("Text too long!");
         else
         {
-            UIText.text = t; //show preview of text
+            UIText.text = newText; //show preview of text
             // TODO: createPrompt(t, options = ["abort", "retry", "ok"]) and wait for user answer
-            string answer2 = "ok";
-            if (answer2 == "ok")
-            {
-                exitRenameView(t); //exit and register new text
-            }
-            else if (answer2 == "retry")
-            {
-                exitRenameView(tmpText); //exit and register old text
-                initRename();
-            }
-            else exitRenameView(tmpText);
         }
     }
 
@@ -126,15 +126,24 @@ public class Node : MonoBehaviour {
         text = tmpText; //make sure text doesn't get messed up
         UIText.text = message; //display error message
         // TODO: createPrompt(message, options = ["retry", "abort"]) and wait for user answer
-        string answer1 = "retry";
-        if (answer1 == "retry")
-        {
-            exitRenameView(tmpText);
-            initRename();
-        }
-        else exitRenameView(tmpText);
     }
-    
+
+    private void vFunction()
+    {
+        exitRenameView(newText); //exit and register new text
+    }
+
+    private void oFunction()
+    {
+        exitRenameView(tmpText); //exit and register old text
+        initRename();
+    }
+
+    private void oFunction()
+    {
+        exitRenameView(tmpText);
+    }
+
     void showRenameView()
     {
         /* Change look of the node that fits the renaming process.
@@ -143,12 +152,12 @@ public class Node : MonoBehaviour {
         // show microphone symbol
     }
 
-    void exitRenameView(string newText)
+    void exitRenameView(string t)
     {
         /* Change look back from rename view.
          */
-        text = newText;
-        UIText.text = newText;
+        text = t;
+        UIText.text = t;
         tmpText = ""; 
         recorder.stopRecognizer();
         leavePresentationMode();
