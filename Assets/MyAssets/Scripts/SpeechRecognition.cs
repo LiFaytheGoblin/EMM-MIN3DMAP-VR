@@ -64,7 +64,6 @@ public class SpeechRecognition : MonoBehaviour {
          */
         if (recognizer != null  && recognizer.Status == SpeechSystemStatus.Running) //Status can be "Running" (green), "Stopped" (grey), "Failed" (orange) -> Use for user feedback
         {
-            pling.Play(0);
             recognizer.Stop();
         }
     }
@@ -82,6 +81,7 @@ public class SpeechRecognition : MonoBehaviour {
     {
         /* If an error occurs, the node is being messaged about it.
          */
+        pling.Play(0);
         if (cause != DictationCompletionCause.Complete)
             node.error();
     }

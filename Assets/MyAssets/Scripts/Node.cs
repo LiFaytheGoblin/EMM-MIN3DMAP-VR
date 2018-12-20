@@ -27,8 +27,15 @@ public class Node : MonoBehaviour {
     // Use this for initialization
     void Start () {
         listeningForName = false;
+
         UIText = gameObject.GetComponentInChildren<Text>();
         UIText.text = text;
+        UIText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        UIText.verticalOverflow = VerticalWrapMode.Truncate;
+        UIText.resizeTextForBestFit = true;
+        UIText.supportRichText = true;
+
+        Debug.Log(UIText.rectTransform.rect.width + " --- " + UIText.rectTransform.rect.height);
 
         modalPanel = ModalPanel.Instance();
         vAction = new UnityAction(vFunction);
@@ -81,7 +88,7 @@ public class Node : MonoBehaviour {
         if (listeningForName)
         {
             listeningForName = false;
-            handleRenameError("Sorry, that didn't work.");
+            handleRenameError("<i>Sorry, that didn't work.</i>");
         }
     }
 
@@ -112,7 +119,7 @@ public class Node : MonoBehaviour {
          */
         recorder.stopRecognizer();
         newText = t;
-        bool textToLong = newText.Length > 10; //TODO: set the actual length we want / need
+        bool textToLong = newText.Length > 30; //TODO: set the actual length we want / need
         if (textToLong) handleRenameError("Text too long!");
         else
         {
