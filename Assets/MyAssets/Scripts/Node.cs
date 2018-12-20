@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Node : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class Node : MonoBehaviour {
     private SpeechRecognition recorder;
     public bool listeningForName; //helper to know when we give responsability to recorder
 
+    private ModalPanel modalPanel;
     private UnityAction vAction;
     private UnityAction xAction;
     private UnityAction oAction;
@@ -28,6 +30,7 @@ public class Node : MonoBehaviour {
         UIText = gameObject.GetComponentInChildren<Text>();
         UIText.text = text;
 
+        modalPanel = ModalPanel.Instance();
         vAction = new UnityAction(vFunction);
         xAction = new UnityAction(xFunction);
         oAction = new UnityAction(oFunction);
@@ -107,13 +110,14 @@ public class Node : MonoBehaviour {
          * It does create a few prompts for users 
          * to have full control over the renaming process.
          */
+        recorder.stopRecognizer();
         newText = t;
         bool textToLong = newText.Length > 10; //TODO: set the actual length we want / need
         if (textToLong) handleRenameError("Text too long!");
         else
         {
             UIText.text = newText; //show preview of text
-            // TODO: createPrompt(t, options = ["abort", "retry", "ok"]) and wait for user answer
+            modalPanel.choice(vAction, xAction, oAction);
         }
     }
 
@@ -125,7 +129,7 @@ public class Node : MonoBehaviour {
          */
         text = tmpText; //make sure text doesn't get messed up
         UIText.text = message; //display error message
-        // TODO: createPrompt(message, options = ["retry", "abort"]) and wait for user answer
+        modalPanel.choice(null, xAction, oAction);
     }
 
     private void vFunction()
@@ -139,7 +143,7 @@ public class Node : MonoBehaviour {
         initRename();
     }
 
-    private void oFunction()
+    private void xFunction()
     {
         exitRenameView(tmpText);
     }
@@ -159,7 +163,7 @@ public class Node : MonoBehaviour {
         text = t;
         UIText.text = t;
         tmpText = ""; 
-        recorder.stopRecognizer();
+        
         leavePresentationMode();
     }
 

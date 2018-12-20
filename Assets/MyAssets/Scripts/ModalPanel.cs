@@ -18,6 +18,11 @@ public class ModalPanel : MonoBehaviour {
 
     private static ModalPanel modalPanel;
 
+    public void Start()
+    {
+        closePanel();
+    }
+
     public static ModalPanel Instance()
     {
         /* 
@@ -39,20 +44,29 @@ public class ModalPanel : MonoBehaviour {
         modalPanelObject.SetActive(true); //open panel
 
         vButton.onClick.RemoveAllListeners();
-        vButton.onClick.AddListener(vEvent);
-        vButton.onClick.AddListener(closePanel); //if any button is clicked, the panel should be closed.
-
         xButton.onClick.RemoveAllListeners();
-        xButton.onClick.AddListener(xEvent);
-        xButton.onClick.AddListener(closePanel);
-
         oButton.onClick.RemoveAllListeners();
-        oButton.onClick.AddListener(oEvent);
-        oButton.onClick.AddListener(closePanel);
 
-        vButton.gameObject.SetActive(true);
-        xButton.gameObject.SetActive(true);
-        oButton.gameObject.SetActive(true);
+        if (oEvent != null)
+        {
+            oButton.onClick.AddListener(oEvent);
+            oButton.onClick.AddListener(closePanel); //if any button is clicked, the panel should be closed.
+            oButton.gameObject.SetActive(true);
+        }
+        
+        if(vEvent != null)
+        {
+            vButton.onClick.AddListener(vEvent);
+            vButton.onClick.AddListener(closePanel); 
+            vButton.gameObject.SetActive(true);
+        }
+        
+        if(xEvent != null)
+        {
+            xButton.onClick.AddListener(xEvent);
+            xButton.onClick.AddListener(closePanel);
+            xButton.gameObject.SetActive(true);
+        }
     }
 
     public void closePanel()
