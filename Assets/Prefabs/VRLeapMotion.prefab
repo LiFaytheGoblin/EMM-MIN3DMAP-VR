@@ -1189,6 +1189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4972151868136918}
   - component: {fileID: 114247078213896664}
+  - component: {fileID: 114968903954013270}
   m_Layer: 0
   m_Name: LeapMotion
   m_TagString: Untagged
@@ -2698,7 +2699,7 @@ MonoBehaviour:
   touchActivationRadius: 0.075
   _autoGenerateLayers: 1
   _templateLayer:
-    layerIndex: 0
+    layerIndex: 2
   _interactionLayer:
     layerIndex: 9
   _interactionNoContactLayer:
@@ -2791,12 +2792,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa54b7fe85912b40a275ed80bef459a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadData: 1
+  NodePrefab: {fileID: 1885264354301550, guid: 54e35a603cd188b4e847444b61973199, type: 2}
   root: {fileID: 0}
   NodeContainer: {fileID: 0}
   selectedNode: {fileID: 0}
+  Nodes: []
   NodeMaterial: {fileID: 2100000, guid: b22995c683dc6784db995c57e6da1a9f, type: 2}
   selectedNodeMaterial: {fileID: 2100000, guid: f970c9899d3b39a4b80edb5cc5dc06e6,
     type: 2}
+  lineColor: {fileID: 2100000, guid: f8c7623bf6085834194508c5a1c0c857, type: 2}
+  idCounter: 0
 --- !u!114 &114283631134768312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2966,13 +2972,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ND: {fileID: 114247078213896664}
-  prefab: {fileID: 1885264354301550, guid: 54e35a603cd188b4e847444b61973199, type: 2}
-  lineColor: {fileID: 2100000, guid: f8c7623bf6085834194508c5a1c0c857, type: 2}
   prefabCreated: 0
   IsPinching: 0
   PinchingPOS: {x: 0, y: 0, z: 0}
   distanse: 0.5
-  distanseBetweenFingers: 0.1
+  distanseBetweenFingers: 0.2
 --- !u!114 &114444848146366102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3552,6 +3556,19 @@ MonoBehaviour:
   MinimumExtendedCount: 0
   MaximumExtendedCount: 2
   ShowGizmos: 1
+--- !u!114 &114968903954013270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1982338019921302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5decc3106b872ba4f983bdf602941b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: []
+  loading: 0
 --- !u!114 &114974095356870152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3645,7 +3662,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6abeee8e66f6d66499ebfabe3071781b, type: 2}
+  - {fileID: 2100000, guid: c5b9e8be6efc5c74aad1024a1e60cc0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3716,7 +3733,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 83278e7188ea55a498165e1b85cde644, type: 2}
+  - {fileID: 2100000, guid: c5b9e8be6efc5c74aad1024a1e60cc0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

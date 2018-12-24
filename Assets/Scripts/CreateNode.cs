@@ -8,16 +8,12 @@ public class CreateNode : MonoBehaviour {
 
     public NodeController ND;
 
-    public GameObject prefab;
-    public Material lineColor;
-
     public bool prefabCreated = false;
     public bool IsPinching = false;
     public Vector3 PinchingPOS;
     public float distanse = 1.0f;
     public float distanseBetweenFingers = 1.0f;
 
-    List<GameObject> Nodes = new List<GameObject>();
     LeapServiceProvider provider;
   
 
@@ -43,47 +39,37 @@ public class CreateNode : MonoBehaviour {
             if (canCreate())
             {
                 //Debug.Log(prefabCreated);
-                GameObject node = Instantiate(prefab, PinchingPOS, prefab.transform.rotation);
-                if(ND.root == null)
+                GameObject node = Instantiate(ND.NodePrefab, PinchingPOS, ND.NodePrefab.transform.rotation);
+                node.GetComponent<Node>().data.id = ND.idCounter;
+                ND.idCounter++;
+                if (ND.root == null)
                 {
                     ND.root = node;
                     ND.selectNode(node);
-                    node.transform.parent = ND.NodeContainer.transform;
-                }
+                 }
                 else 
                 {
                     ND.selectedNode.GetComponent<Node>().children.Add(node);
+                    //ND.selectedNode.GetComponent<Node>().resetData();
                     node.GetComponent<Node>().parent = ND.selectedNode;
-                    createLine(node);
-                    node.transform.parent = ND.NodeContainer.transform;
+                    ND.createLine(node);
                 }
-                Nodes.Add(node);
+                node.transform.parent = ND.NodeContainer.transform;
+                ND.Nodes.Add(node);
+                DataController.Instance.data.Add(node.GetComponent<Node>().data);
+                node.GetComponent<Node>().resetData();
                 prefabCreated = true;
             }
         
         }
     }
 
-    LineRenderer createLine(GameObject newNode)
-    {
-        if(ND.selectedNode != null)
-        {
-           // GameObject go = new GameObject();
-            LineRenderer line = newNode.AddComponent<LineRenderer>();
-            line.startWidth = .01f;
-            line.endWidth = .01f;
-            line.material = lineColor ;
-            line.SetPosition(0, ND.selectedNode.transform.position);
-            line.SetPosition(1, newNode.transform.position);
-            return line;
-        }
-        return null;
-    }
+
 
     bool canCreate()
     {
         bool canCreate = true;
-        foreach (GameObject Node in Nodes)
+        foreach (GameObject Node in ND.Nodes)
         {
             Vector3 diff = Node.transform.position - PinchingPOS;
             if (diff.magnitude < distanse)

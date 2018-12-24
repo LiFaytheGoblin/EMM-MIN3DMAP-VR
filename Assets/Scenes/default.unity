@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -113,6 +113,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &479903528
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.992
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 6.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.00029895024
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732136330890278, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114850876984927758, guid: 54e35a603cd188b4e847444b61973199,
+        type: 2}
+      propertyPath: OnHandleDeactivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114501002478848566, guid: 54e35a603cd188b4e847444b61973199,
+        type: 2}
+      propertyPath: OnHandleDeactivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114605329289175190, guid: 54e35a603cd188b4e847444b61973199,
+        type: 2}
+      propertyPath: OnHandleDeactivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114232663394152874, guid: 54e35a603cd188b4e847444b61973199,
+        type: 2}
+      propertyPath: OnHandleDeactivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273285403947664, guid: 54e35a603cd188b4e847444b61973199,
+        type: 2}
+      propertyPath: OnHandleDeactivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114821194697667812, guid: 54e35a603cd188b4e847444b61973199,
+        type: 2}
+      propertyPath: OnHandleDeactivated.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 54e35a603cd188b4e847444b61973199, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1375484057
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,8 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   node: {fileID: 1885264354301550, guid: 5aff003d1feb8c945b23021320c03012, type: 2}
-  id: 0
-  text: 
+  localData: []
 --- !u!4 &1822126987
 Transform:
   m_ObjectHideFlags: 0
@@ -315,9 +386,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+  - id: 0
     text: 
     xPos: 0
     yPos: 0
     zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
+  - id: 0
+    text: 
+    xPos: 0
+    yPos: 0
+    zPos: 0
+    parentId: 0
+    childrenIds: 
   loading: 0

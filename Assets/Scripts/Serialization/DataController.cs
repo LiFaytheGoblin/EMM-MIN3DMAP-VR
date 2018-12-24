@@ -71,8 +71,13 @@ public class DataController : MonoBehaviour
             data = (List<NodeData>)formatter.Deserialize(saveFile);
 
             saveFile.Close();
-        }
+
         loading = true;
         return data;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
