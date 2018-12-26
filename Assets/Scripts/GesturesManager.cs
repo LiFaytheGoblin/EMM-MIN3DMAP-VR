@@ -4,6 +4,7 @@ using UnityEngine;
 using Leap;
 using Leap.Unity;
 using System;
+using UnityEngine.UI;
 
 public class GesturesManager : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class GesturesManager : MonoBehaviour
     LeapServiceProvider provider;
     DateTime lastTransport = DateTime.Now;
 
+    public bool PointerActive = true;
+
 
     // Use this for initialization
     void Start()
@@ -42,7 +45,7 @@ public class GesturesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pointer)
+        if (pointer && PointerActive)
         {
             Frame frame = provider.CurrentFrame;
             foreach (Hand hand in frame.Hands)
@@ -137,7 +140,8 @@ public class GesturesManager : MonoBehaviour
     public void showPointer()
     {
         pointer = true;
-        line.gameObject.SetActive(true);
+        if (PointerActive) line.gameObject.SetActive(true);
+
     }
 
     public void hidePointer()
@@ -165,5 +169,21 @@ public class GesturesManager : MonoBehaviour
     public void GroundPointer()
     {
         isNode = false;
+    }
+
+    public void PointerActiveBtn(Text PointerActiveBtn)
+    {
+        PointerActive = !PointerActive;
+        if (PointerActive)
+        {
+            PointerActiveBtn.text = "Pinter:On";
+            line.gameObject.SetActive(true);
+        }
+        else
+        {
+            PointerActiveBtn.text = "Pinter:Off";
+            line.gameObject.SetActive(false);
+        }
+
     }
 }

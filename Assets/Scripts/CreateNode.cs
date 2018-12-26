@@ -3,65 +3,86 @@ using System.Collections.Generic;
 using UnityEngine;
 using Leap;
 using Leap.Unity;
+using UnityEngine.UI;
 
-public class CreateNode : MonoBehaviour {
+public class CreateNode : MonoBehaviour
+{
 
     public NodeController ND;
 
-    public bool prefabCreated = false;
-    public bool IsPinching = false;
+    bool prefabCreated = false;
+    bool IsPinching = false;
     public Vector3 PinchingPOS;
     public float distanse = 1.0f;
     public float distanseBetweenFingers = 1.0f;
 
     LeapServiceProvider provider;
-  
+
+
+    public bool createMode = true;
+
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         provider = FindObjectOfType<LeapServiceProvider>() as LeapServiceProvider;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         checkIsPinching();
         if (!prefabCreated)
         {
-            createNode();
+            if (IsPinching)
+            {
+                if (canCreate())
+                {
+                    if (createMode)
+                    {
+                        createNode();
+                    }
+                    else
+                    {
+                        MoveNode();
+                    }
+                }
+
+            }
         }
-      
+
+    }
+
+    void MoveNode()
+    {
+        ND.selectedNode.transform.position = PinchingPOS;
+        ND.selectedNode.GetComponent<Node>().rePostion();
+        prefabCreated = true;
     }
 
     void createNode()
     {
-        if (IsPinching)
+        //Debug.Log(prefabCreated);
+        GameObject node = Instantiate(ND.NodePrefab, PinchingPOS, ND.NodePrefab.transform.rotation);
+        node.GetComponent<Node>().data.id = ND.idCounter;
+        ND.idCounter++;
+        if (ND.root == null)
         {
-            if (canCreate())
-            {
-                //Debug.Log(prefabCreated);
-                GameObject node = Instantiate(ND.NodePrefab, PinchingPOS, ND.NodePrefab.transform.rotation);
-                node.GetComponent<Node>().data.id = ND.idCounter;
-                ND.idCounter++;
-                if (ND.root == null)
-                {
-                    ND.root = node;
-                    ND.selectNode(node);
-                 }
-                else 
-                {
-                    ND.selectedNode.GetComponent<Node>().children.Add(node);
-                    //ND.selectedNode.GetComponent<Node>().resetData();
-                    node.GetComponent<Node>().parent = ND.selectedNode;
-                    ND.createLine(node);
-                }
-                node.transform.parent = ND.NodeContainer.transform;
-                ND.Nodes.Add(node);
-                DataController.Instance.data.Add(node.GetComponent<Node>().data);
-                node.GetComponent<Node>().resetData();
-                prefabCreated = true;
-            }
-        
+            ND.root = node;
+            ND.selectNode(node);
         }
+        else
+        {
+            ND.selectedNode.GetComponent<Node>().children.Add(node);
+            //ND.selectedNode.GetComponent<Node>().resetData();
+            node.GetComponent<Node>().parent = ND.selectedNode;
+            ND.createLine(node);
+        }
+        node.transform.parent = ND.NodeContainer.transform;
+        ND.Nodes.Add(node);
+        DataController.Instance.data.Add(node.GetComponent<Node>().data);
+        node.GetComponent<Node>().resetData();
+        prefabCreated = true;
     }
 
 
@@ -101,25 +122,40 @@ public class CreateNode : MonoBehaviour {
                 LeftHand = hand;
             }
 
-           
+
         }
-        if(RightHand != null && LeftHand != null)
+        if (RightHand != null && LeftHand != null)
         {
             if (RightHand.IsPinching() && LeftHand.IsPinching())
             {
                 float distance = Vector3.Distance(RightHand.Fingers[0].TipPosition.ToVector3(), LeftHand.Fingers[0].TipPosition.ToVector3());
                 Debug.Log(distance);
                 if (distanseBetweenFingers > distance)
-                PinchingPOS = Vector3.Lerp(RightHand.Fingers[0].TipPosition.ToVector3(), LeftHand.Fingers[0].TipPosition.ToVector3(), 0.5f);
+                    PinchingPOS = Vector3.Lerp(RightHand.Fingers[0].TipPosition.ToVector3(), LeftHand.Fingers[0].TipPosition.ToVector3(), 0.5f);
                 //   PinchingPOS.x = PinchingPOS.x + 1f;
                 IsPinching = true;
-             }
-            else 
+            }
+            else
             {
                 prefabCreated = false;
                 IsPinching = false;
             }
 
+        }
+    }
+
+
+
+    public void createMoveModeBtn(Text createMoveModeBtn)
+    {
+        createMode = !createMode;
+        if (createMode)
+        {
+            createMoveModeBtn.text = "Node:Create";
+        }
+        else
+        {
+            createMoveModeBtn.text = "Node:Move";
         }
     }
 }

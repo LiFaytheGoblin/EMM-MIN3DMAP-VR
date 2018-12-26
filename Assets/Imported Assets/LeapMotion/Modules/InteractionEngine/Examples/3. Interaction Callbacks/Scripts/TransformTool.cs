@@ -75,10 +75,15 @@ namespace Leap.Unity.Examples {
     }
 
     private void onPostPhysics() {
-      // Hooked up via PhysicsCallbacks in Start(), this method will run after
-      // FixedUpdate and after PhysX has run. We take the opportunity to immediately
-      // manipulate the target object's and this object's transforms using the
-      // accumulated information about movement and rotation from the Transform Handles.
+            // Hooked up via PhysicsCallbacks in Start(), this method will run after
+            // FixedUpdate and after PhysX has run. We take the opportunity to immediately
+            // manipulate the target object's and this object's transforms using the
+            // accumulated information about movement and rotation from the Transform Handles.
+            if (target == null)
+            {
+                Destroy(this);
+                return;
+            }
 
       // Apply accumulated movement and rotation to target object.
       target.transform.rotation = _rotateBuffer * target.transform.rotation;
