@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Node : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Node : MonoBehaviour
 
     public GameObject parent = null;
     public List<GameObject> children = new List<GameObject>();
-    //public string text = "Unity";
+    public Text UIText;
     public GameObject cube;
 
 
@@ -22,6 +23,14 @@ public class Node : MonoBehaviour
     void Start()
     {
         camera = Camera.main.transform;
+
+        UIText = gameObject.GetComponentInChildren<Text>();
+        UIText.text = data.text;
+        //UIText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        //UIText.verticalOverflow = VerticalWrapMode.Truncate;
+        //UIText.resizeTextForBestFit = true;
+        //UIText.supportRichText = true;
+        //Debug.Log(UIText.rectTransform.rect.width + " --- " + UIText.rectTransform.rect.height);
     }
 
     // Update is called once per frame

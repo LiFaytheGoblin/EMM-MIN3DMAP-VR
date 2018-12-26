@@ -7,26 +7,24 @@ public class DeleteNode : MonoBehaviour
 
     public NodeController ND;
 
-    // Use this for initialization
-    void Start()
-    {
+    public GameObject UIStage;
 
+
+    public void ShowUI()
+    {
+        UIStage.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideUI()
     {
-
+        UIStage.SetActive(false);
     }
+
 
     public void deleteSelectedNode()
     {
-        //foreach (Node n in ND.selectedNode.GetComponentsInChildren<Node>(true)) //include inactive
-        //{
-        //    DataController.Instance.data.Remove(n.data);
-        //    Destroy(n.gameObject);
-        //}
         GetChildRecursive(ND.selectedNode);
+        UIStage.SetActive(false);
     }
 
     private void GetChildRecursive(GameObject node)
@@ -41,9 +39,16 @@ public class DeleteNode : MonoBehaviour
             //child.gameobject contains the current child you can do whatever you want like add it to an array
             GetChildRecursive(child.gameObject);
             ND.Nodes.Remove(child.gameObject);
+            DataController.Instance.data.Remove(child.GetComponent<Node>().data);
             Destroy(child.gameObject);
         }
         ND.Nodes.Remove(node);
+        DataController.Instance.data.Remove(node.GetComponent<Node>().data);
+        GameObject parent = node.GetComponent<Node>().parent;
+        if(parent != null)
+        {
+            ND.selectNode(node.GetComponent<Node>().parent);
+        }
         Destroy(node);
     }
 

@@ -55,9 +55,17 @@ public class CreateNode : MonoBehaviour
 
     void MoveNode()
     {
-        ND.selectedNode.transform.position = PinchingPOS;
-        ND.selectedNode.GetComponent<Node>().rePostion();
-        prefabCreated = true;
+        if(ND.selectedNode != null)
+        {
+            ND.selectedNode.transform.position = PinchingPOS;
+            ND.selectedNode.GetComponent<Node>().rePostion();
+            prefabCreated = true;
+        }
+        else
+        {
+            createNode();
+        }
+
     }
 
     void createNode()
