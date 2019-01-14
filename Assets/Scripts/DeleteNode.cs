@@ -47,7 +47,8 @@ public class DeleteNode : MonoBehaviour
         GameObject parent = node.GetComponent<Node>().parent;
         if(parent != null)
         {
-            ND.selectNode(node.GetComponent<Node>().parent);
+            ND.selectNode(parent);
+            parent.GetComponent<Node>().children.Remove(node);
         }
         Destroy(node);
     }
