@@ -192,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 237127382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2068706727}
@@ -238,7 +238,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.8014706, g: 1, b: 1, a: 0.49}
+  m_Color: {r: 0.5294118, g: 1, b: 1, a: 0.49}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -265,7 +265,40 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!43 &345333775
+--- !u!21 &263078044
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!43 &546668341
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -567,7 +600,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1404047758
+  randomSeed: -678290842
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -719,7 +752,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3933,39 +3966,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!21 &1111984100
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1738788955
 GameObject:
   m_ObjectHideFlags: 0
@@ -4093,12 +4093,12 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 345333775}
+      objectReference: {fileID: 546668341}
     - target: {fileID: 23582640656633878, guid: d070ce5aff60afd4cbb2ba2314cd901f,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1111984100}
+      objectReference: {fileID: 263078044}
     - target: {fileID: 114127531770955680, guid: d070ce5aff60afd4cbb2ba2314cd901f,
         type: 2}
       propertyPath: cylinder
@@ -4117,6 +4117,50 @@ Prefab:
     - target: {fileID: 1682322836976842, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399368775692480, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.0688552
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399368775692480, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.7253823
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399368775692480, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.08727342
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732117284080134, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.0688552
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732117284080134, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.7253823
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732117284080134, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.08727342
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576195883737644, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.010458691
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576195883737644, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.7345434
+      objectReference: {fileID: 0}
+    - target: {fileID: 4020671510106292, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.010458689
+      objectReference: {fileID: 0}
+    - target: {fileID: 4020671510106292, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.7345434
+      objectReference: {fileID: 0}
+    - target: {fileID: 4624702499464844, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.495
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d070ce5aff60afd4cbb2ba2314cd901f, type: 2}
@@ -4159,7 +4203,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0.872, g: 1, b: 0.497, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.25517225, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 40.7

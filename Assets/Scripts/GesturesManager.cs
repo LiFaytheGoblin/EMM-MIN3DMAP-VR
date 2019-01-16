@@ -32,7 +32,6 @@ public class GesturesManager : MonoBehaviour
 
     public bool PointerActive = true;
 
-
     // Use this for initialization
     void Start()
     {
@@ -45,6 +44,15 @@ public class GesturesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("space")) //Styling debugging
+        {
+            Vector3 from = handPos.transform.position;
+            Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+            Vector3 to = handPos.transform.position + 10;
+            Debug.DrawRay(from, forward, Color.yellow); //draws line from in direction of
+            drawLine(from, to, pointerColorNode); //draws line from point a to point b
+        }
+
         if (pointer && PointerActive)
         {
             Frame frame = provider.CurrentFrame;
@@ -77,7 +85,7 @@ public class GesturesManager : MonoBehaviour
                                 {
                                     ND.selectNode(hit.transform.parent.gameObject);
                                 }
-                                Debug.DrawRay(from, to - from, Color.yellow);
+                                //Debug.DrawRay(from, to - from, Color.yellow);
                                 drawLine(from, hit.point, pointerColorNode);
                                 cylinder.SetActive(false);
                             }
