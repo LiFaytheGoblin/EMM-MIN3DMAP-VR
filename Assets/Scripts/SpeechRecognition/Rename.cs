@@ -3,21 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>  
+///  This class manage rename node 
+/// </summary>  
 public class Rename : MonoBehaviour {
 
+    /// <summary>  
+    /// SpeechRecognition instance
+    /// </summary> 
     public SpeechRecognition SR;
+
+    /// <summary>  
+    ///  The Node Controller in the scene
+    /// </summary>  
     public NodeController ND;
 
+    /// <summary>  
+    ///  The rename UI the first massage
+    /// </summary>  
     public GameObject UIStage1;
+
+    /// <summary>  
+    ///  The rename UI the second massage
+    /// </summary>  
     public GameObject UIStage2;
+
+    /// <summary>  
+    ///  The rename UI the third massage
+    /// </summary>  
     public GameObject UIStage3;
+
+    /// <summary>  
+    ///  The rename UI if long text recorded
+    /// </summary>  
     public GameObject UIStageLongText;
+
+    /// <summary>  
+    ///  The rename UI if error occurred
+    /// </summary>  
     public GameObject UIStageError;
+
+    /// <summary>  
+    /// The rename UI the third message text component
+    /// </summary>  
     public Text UIStage3Text;
+
+    /// <summary>  
+    /// The node text
+    /// </summary>  
     public string text;
 
+    /// <summary>  
+    /// Renaming is running
+    /// </summary>  
     bool Renaming = false;
 
+
+    /// <summary>  
+    /// Show Rename UI
+    /// </summary> 
     public void ShowUIStage () {
         if (!Renaming && ND.selectedNode != null)
         {
@@ -26,6 +70,9 @@ public class Rename : MonoBehaviour {
         }
     }
 
+    /// <summary>  
+    /// Start Rename 
+    /// </summary> 
     public void StartRename()
     {
         text = ND.selectedNode.GetComponent<Node>().data.text;
@@ -34,6 +81,9 @@ public class Rename : MonoBehaviour {
         SR.startRecognizer();
     }
 
+    /// <summary>  
+    /// Restart Rename
+    /// </summary> 
     public void restartRename()
     {
         SR.stopRecognizer();
@@ -45,6 +95,9 @@ public class Rename : MonoBehaviour {
         SR.startRecognizer();
     }
 
+    /// <summary>  
+    /// Get the recorded text
+    /// </summary> 
     public void onResult(string newText)
     {
         UIStage1.SetActive(false);
@@ -52,11 +105,14 @@ public class Rename : MonoBehaviour {
         UIStage3.SetActive(true);
         UIStageLongText.SetActive(false);
         UIStageError.SetActive(false);
-        UIStage3Text.text = "The New Name is (" + newText + ") " +
-            "press restart to change the Name";
+        UIStage3Text.text = "The new name is (" + newText + "), " +
+            "press restart to change the name.";
         text = newText;
     }
 
+    /// <summary>  
+    /// Change the node text with the new text and close renaming window
+    /// </summary> 
     public void save()
     {
         Debug.Log("Save");
@@ -70,6 +126,9 @@ public class Rename : MonoBehaviour {
         Renaming = false;
     }
 
+    /// <summary>  
+    /// if long text detected show the long text UI
+    /// </summary> 
     public void LongText()
     {
         UIStage1.SetActive(false);
@@ -79,6 +138,9 @@ public class Rename : MonoBehaviour {
         UIStageError.SetActive(false);
     }
 
+    /// <summary>  
+    /// if error detected show the error UI
+    /// </summary> 
     public void error()
     {
         UIStage1.SetActive(false);
@@ -88,6 +150,9 @@ public class Rename : MonoBehaviour {
         UIStageError.SetActive(true);
     }
 
+    /// <summary>  
+    /// close all renaming windows 
+    /// </summary> 
     public void close()
     {
         UIStage1.SetActive(false);

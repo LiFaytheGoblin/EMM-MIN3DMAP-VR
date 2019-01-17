@@ -13,17 +13,18 @@ The pling sound is "Pling Sound" by KevanGC published under Public Domain on Sou
 (published 12.02.2010, accessed 17.12.2018)
  */
 
+/// <summary>  
+/// The SpeechRecognition engine class provides everything necessary for
+/// nodes to use speech recognition. We use dictation recognition, that means
+/// we search for a word or sentence the user said. What they say is up to
+/// them and does not matter. (Other recognizers might need the user to say one
+/// of several specific words in order to execute commands.)
+/// The recognizer can be started, stopped, sends results and errors to
+/// the node that is using it.
+/// </summary>  
 public class SpeechRecognition : MonoBehaviour
 {
-    /*
-     * The SpeechRecognition engine class provides everything necessary for
-     * nodes to use speech recognition. We use dictation recognition, that means
-     * we search for a word or sentence the user said. What they say is up to
-     * them and does not matter. (Other recognizers might need the user to say one
-     * of several specific words in order to execute commands.)
-     * The recognizer can be started, stopped, sends results and errors to
-     * the node that is using it.
-     */
+
 
     public static SpeechRecognition Instance;
 
@@ -48,11 +49,11 @@ public class SpeechRecognition : MonoBehaviour
         pling = GetComponent<AudioSource>();
     }
 
+    /// <summary>  
+    /// This function starts the recognizer.
+    /// </summary> 
     public void startRecognizer()
     {
-        /*
-         This function starts the recognizer.
-         */
         if (recognizer.Status != SpeechSystemStatus.Running)
         {
             pling.Play(0);
@@ -60,34 +61,33 @@ public class SpeechRecognition : MonoBehaviour
         }
     }
 
+    /// <summary>  
+    /// This function stops the recognizer if one is running.
+    /// </summary> 
     public void stopRecognizer()
     {
-        /*
-         This function stops the recognizer if one is running.
-         */
         if (recognizer != null && recognizer.Status == SpeechSystemStatus.Running) //Status can be "Running" (green), "Stopped" (grey), "Failed" (orange) -> Use for user feedback
         {
             recognizer.Stop();
         }
     }
 
+    /// <summary>  
+    ///  When dictation results have been received, they are sent to the node.
+    /// </summary> 
     private void onDictationResult(string text, ConfidenceLevel confidence)
     {
-        /*
-         When dictation results have been received, they are sent to the node.
-         */
-        Debug.Log(text); //TODO: remove after testing
         rename(text);
     }
 
+    /// <summary>  
+    /// The actual renaming of the node,
+    /// which will change the displayed text.
+    /// It does create a few prompts for users
+    /// to have full control over the renaming process.
+    /// </summary> 
     public void rename(string t)
     {
-        /*
-         * The actual renaming of the node,
-         * which will change the displayed text.
-         * It does create a few prompts for users 
-         * to have full control over the renaming process.
-         */
         stopRecognizer();
         string newText = t;
         bool textToLong = newText.Length > 30; //TODO: set the actual length we want / need
@@ -102,30 +102,34 @@ public class SpeechRecognition : MonoBehaviour
     }
 
 
-
+    /// <summary>  
+    ///  If an error occurs, the node is being messaged about it.
+    /// </summary> 
     private void onDictationComplete(DictationCompletionCause cause)
     {
-        /* If an error occurs, the node is being messaged about it.
-         */
         pling.Play(0);
         if (cause != DictationCompletionCause.Complete)
             R.error();
     }
 
+    /// <summary>  
+    ///  If an error occurs, the node is being messaged about it.
+    /// </summary> 
     void onDictationError(string error, int hresult)
     {
-        /* If an error occurs, the node is being messaged about it.
-         */
         R.error();
     }
 
 
+    /// <summary>  
+    /// free up resources
+    /// </summary> 
     private void OnApplicationQuit()
     {
         if (recognizer != null)
         {
             stopRecognizer();
-            recognizer.Dispose(); //free up resources
+            recognizer.Dispose(); 
         }
     }
 }

@@ -1,34 +1,67 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Leap;
 using Leap.Unity;
 using UnityEngine.UI;
 
+/// <summary>  
+///  This class manage create or move node with Pinch Gesture
+/// </summary>  
 public class CreateNode : MonoBehaviour
 {
 
+    /// <summary>  
+    ///  The Node Controller in the scene
+    /// </summary>  
     public NodeController ND;
 
+    /// <summary>  
+    ///  Boolean to check if the node already created
+    /// </summary>  
     bool prefabCreated = false;
+
+    /// <summary>  
+    ///  Boolean to check if the pinch gesture is active
+    /// </summary>  
     bool IsPinching = false;
+
+    /// <summary>  
+    ///  The position of the pinch gesture
+    /// </summary>  
     public Vector3 PinchingPOS;
+
+    /// <summary>  
+    ///  Allowed distance between two nodes
+    /// </summary>  
     public float distanse = 1.0f;
+
+    /// <summary>  
+    ///  the max allowed distance between fingers
+    /// </summary>  
     public float distanseBetweenFingers = 1.0f;
 
+    /// <summary>  
+    ///  Leap motion Service Provider
+    /// </summary>  
     LeapServiceProvider provider;
 
-
+    /// <summary>  
+    ///  Boolean to check the mode of the pinch (pinch to create/pinch to move)
+    /// </summary>  
     public bool createMode = true;
 
 
-    // Use this for initialization
+    /// <summary>  
+    ///  Leap motion Service Provider initialization
+    /// </summary> 
     void Start()
     {
         provider = FindObjectOfType<LeapServiceProvider>() as LeapServiceProvider;
     }
 
-    // Update is called once per frame
+
+    /// <summary>  
+    ///  Check every frame if pinch gesture is active
+    /// </summary> 
     void Update()
     {
         checkIsPinching();
@@ -53,6 +86,9 @@ public class CreateNode : MonoBehaviour
 
     }
 
+    /// <summary>  
+    /// Move the selected node to the pinch position
+    /// </summary> 
     void MoveNode()
     {
         if(ND.selectedNode != null)
@@ -68,9 +104,11 @@ public class CreateNode : MonoBehaviour
 
     }
 
+    /// <summary>  
+    /// create new node in the pinch position
+    /// </summary> 
     void createNode()
     {
-        //Debug.Log(prefabCreated);
         GameObject node = Instantiate(ND.NodePrefab, PinchingPOS, ND.NodePrefab.transform.rotation);
         node.GetComponent<Node>().data.id = ND.idCounter;
         ND.idCounter++;
@@ -94,7 +132,9 @@ public class CreateNode : MonoBehaviour
     }
 
 
-
+    /// <summary>  
+    /// check if node already exist in the pinch position
+    /// </summary> 
     bool canCreate()
     {
         bool canCreate = true;
@@ -109,7 +149,9 @@ public class CreateNode : MonoBehaviour
         return canCreate;
     }
 
-
+    /// <summary>  
+    /// Check if pinch gesture is active
+    /// </summary> 
     void checkIsPinching()
     {
         Hand RightHand = null;
@@ -153,17 +195,20 @@ public class CreateNode : MonoBehaviour
     }
 
 
-
+    /// <summary>  
+    /// Switch between the move and create mode
+    /// </summary> 
+    /// <param name="createMoveModeBtn">The Text UI for the createMoveMode button in the hand Menu</param>
     public void createMoveModeBtn(Text createMoveModeBtn)
     {
         createMode = !createMode;
         if (createMode)
         {
-            createMoveModeBtn.text = "Node:Create";
+            createMoveModeBtn.text = "Pinch to create";
         }
         else
         {
-            createMoveModeBtn.text = "Node:Move";
+            createMoveModeBtn.text = "Pinch to move";
         }
     }
 }

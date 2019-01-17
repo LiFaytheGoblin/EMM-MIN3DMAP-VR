@@ -9,27 +9,80 @@ using UnityEngine.UI;
 public class GesturesManager : MonoBehaviour
 {
 
+    /// <summary>  
+    ///  The Node Controller in the scene
+    /// </summary>  
     public NodeController ND;
+
+    /// <summary>  
+    ///  The VR Player GameObject
+    /// </summary>  
     public GameObject VRCamera;
+
+    /// <summary>  
+    ///  The pointer material if it hits the ground
+    /// </summary>  
     public Material pointerColorGround;
+
+    /// <summary>  
+    ///  The pointer material if it hits a node
+    /// </summary>  
     public Material pointerColorNode;
+
+    /// <summary>  
+    ///  The pointer material if it doesn't hit anything
+    /// </summary>  
     public Material pointerColor;
 
+    /// <summary>  
+    ///  The transportation cylinder gameObject
+    /// </summary>  
     public GameObject cylinder;
 
+    /// <summary>  
+    ///  The pointer raycast start
+    /// </summary>  
     public GameObject handPos;
+
+    /// <summary>  
+    ///  The pointer raycast end by node
+    /// </summary> 
     public GameObject handtoNode;
-    public GameObject handtoGround;
 
+
+    //public GameObject handtoGround;
+
+    /// <summary>  
+    ///  The pointer LineRenderer
+    /// </summary> 
     LineRenderer line;
-    public bool pointer = false;
-    public bool thump = false;
-    public bool isNode = false;
-    //  public Vector3 toOffset;
 
+    /// <summary>  
+    ///  check if pointer gesture is on
+    /// </summary>
+    public bool pointer = false;
+
+    /// <summary>  
+    ///  check if thump gesture is on
+    /// </summary>
+    public bool thump = false;
+
+
+    //public bool isNode = false;
+
+    /// <summary>  
+    ///  Leap motion Service Provider
+    /// </summary>  
     LeapServiceProvider provider;
+
+    /// <summary>  
+    ///  The time of last the transportation
+    /// </summary>  
     DateTime lastTransport = DateTime.Now;
 
+    /// <summary>  
+    ///  check if pointer is Active 
+    /// </summary> 
     public bool PointerActive = true;
 
 
@@ -42,7 +95,9 @@ public class GesturesManager : MonoBehaviour
         go.SetActive(false);
     }
 
-    // Update is called once per frame
+    /// <summary>  
+    /// Check every frame if pointer is active and check if it hit something
+    /// </summary> 
     void Update()
     {
         if (pointer && PointerActive)
@@ -54,14 +109,14 @@ public class GesturesManager : MonoBehaviour
                 {
                     Vector3 from = handPos.transform.position;
                     Vector3 to;
-                    if (isNode)
-                    {
-                        to = handtoNode.transform.position;
-                    }
-                    else
-                    {
-                        to = handtoGround.transform.position;
-                    }
+                    //if (isNode)
+                    //{
+                    to = handtoNode.transform.position;
+                    //}
+                    //else
+                    //{
+                    //    to = handtoGround.transform.position;
+                    //}
                     RaycastHit[] hits;
                     hits = Physics.RaycastAll(from, to - from);
                     if (hits.Length > 0)
@@ -81,7 +136,7 @@ public class GesturesManager : MonoBehaviour
                                 drawLine(from, hit.point, pointerColorNode);
                                 cylinder.SetActive(false);
                             }
-                            else if(hit.transform.tag == "Ground" && !hitFound)
+                            else if (hit.transform.tag == "Ground" && !hitFound)
                             {
                                 hitFound = true;
                                 Debug.Log("Ground hit");
@@ -119,7 +174,7 @@ public class GesturesManager : MonoBehaviour
                     }
                     else
                     {
-                         Debug.DrawRay(from, to - from, Color.white);
+                        Debug.DrawRay(from, to - from, Color.white);
                         drawLine(from, to, pointerColor);
                         cylinder.SetActive(false);
                     }
@@ -128,6 +183,12 @@ public class GesturesManager : MonoBehaviour
         }
     }
 
+    /// <summary>  
+    /// Move the pointer and change its material
+    /// </summary> 
+    /// <param name="v1">The start point</param>
+    /// <param name="v2">The end point</param>
+    /// <param name="material">The pointer material</param>
     void drawLine(Vector3 v1, Vector3 v2, Material material)
     {
         line.startWidth = .01f;
@@ -137,6 +198,9 @@ public class GesturesManager : MonoBehaviour
         line.SetPosition(1, v2);
     }
 
+    /// <summary>  
+    /// Show Pointer when the pointer gesture is on
+    /// </summary> 
     public void showPointer()
     {
         pointer = true;
@@ -144,6 +208,9 @@ public class GesturesManager : MonoBehaviour
 
     }
 
+    /// <summary>  
+    /// Hide Pointer when the pointer gesture is on
+    /// </summary> 
     public void hidePointer()
     {
         pointer = false;
@@ -151,37 +218,47 @@ public class GesturesManager : MonoBehaviour
         cylinder.SetActive(false);
     }
 
+    /// <summary>  
+    /// The thump gesture is on
+    /// </summary> 
     public void thumpPressed()
     {
         thump = true;
     }
 
+    /// <summary>  
+    /// The thump gesture is off
+    /// </summary> 
     public void thumpRelease()
     {
         thump = false;
     }
 
-    public void NodePointer()
-    {
-        isNode = true;
-    }
+    //public void NodePointer()
+    //{
+    //    isNode = true;
+    //}
 
-    public void GroundPointer()
-    {
-        isNode = false;
-    }
+    //public void GroundPointer()
+    //{
+    //    isNode = false;
+    //}
 
+    /// <summary>  
+    /// Turn the pointer on and off with the hand menu button
+    /// </summary> 
+    /// <param name="createMoveModeBtn">The Text UI for the pointerOnOff button in the hand Menu</param>
     public void PointerActiveBtn(Text PointerActiveBtn)
     {
         PointerActive = !PointerActive;
         if (PointerActive)
         {
-            PointerActiveBtn.text = "Pinter:On";
+            PointerActiveBtn.text = "Pointer:On";
             line.gameObject.SetActive(true);
         }
         else
         {
-            PointerActiveBtn.text = "Pinter:Off";
+            PointerActiveBtn.text = "Pointer:Off";
             line.gameObject.SetActive(false);
         }
 
