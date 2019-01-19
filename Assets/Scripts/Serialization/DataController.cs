@@ -12,13 +12,15 @@ using System.IO;
 // Save and Load is not only present in this class (DataController),
 // but also in Map and NodeData.
 
+
+/// <summary>  
+///  The DataController functions as a global object
+///  that persists over scenes.It's responsability
+///  is to save the Min3dmap to and from a file.
+/// </summary> 
 public class DataController : MonoBehaviour
 {
-    /*
-     The DataController functions as a global object
-     that persists over scenes. It's responsability
-     is to save the Min3dmap to and from a file.
-     */
+
     public static DataController Instance;
     public List<NodeData> data = new List<NodeData>();
     public bool loading = false;
@@ -38,12 +40,11 @@ public class DataController : MonoBehaviour
         }
     }
 
+    /// <summary>  
+    ///  This function will save the Min3dmap to a file "save.binary".
+    /// </summary> 
     public void Save()
     {
-        /*
-         This function will save the Min3dmap to a file 
-         "save.binary".
-         */
         if (!Directory.Exists("Saves"))
             Directory.CreateDirectory("Saves");
 
@@ -57,12 +58,11 @@ public class DataController : MonoBehaviour
         saveFile.Close();
     }
 
+    /// <summary>  
+    /// This function will load the Min3dmap from the file "save.binary".
+    /// </summary> 
     public List<NodeData> Load()
     {
-        /*
-         This function will load the Min3dmap from the file 
-         "save.binary".
-         */
         if (File.Exists("Saves/save.binary"))
         {
             BinaryFormatter formatter = new BinaryFormatter();

@@ -995,7 +995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1265096847048906
 GameObject:
   m_ObjectHideFlags: 0
@@ -10781,7 +10781,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "The New Name is \npress restart to change the Name"
+  m_Text: 'The new name is ,
+
+    press restart to change the Name.'
 --- !u!114 &114624571346581688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10857,7 +10859,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Please Say the New Name
+  m_Text: 'Please say the new name.
 
     Recording ...'
 --- !u!114 &114643718775715054
@@ -11050,7 +11052,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 80
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 4
@@ -11222,7 +11224,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Are you sure you want to Delete the Selected Node?
+  m_Text: Are you sure you want to delete the selected node?
 --- !u!114 &114762641174877052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11429,7 +11431,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Node:Create
+  m_Text: Pinch to create
 --- !u!114 &114812710464781350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11453,7 +11455,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 80
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 300
     m_Alignment: 4
@@ -12193,7 +12195,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: To Rename the Selected Node Pleasse press Start
+  m_Text: To rename the selected node pleasse press Start.
 --- !u!114 &114964576461852748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13550,7 +13552,7 @@ RectTransform:
   m_GameObject: {fileID: 1083172990127212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.39116666, y: 0.45177838, z: 0.45177838}
+  m_LocalScale: {x: 0.33430424, y: 0.45177838, z: 0.45177838}
   m_Children: []
   m_Father: {fileID: 224205979305451522}
   m_RootOrder: 0
