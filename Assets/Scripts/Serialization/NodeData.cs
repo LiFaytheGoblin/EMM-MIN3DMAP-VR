@@ -12,10 +12,10 @@ using System.Collections.Generic;
 /// </summary> 
 [Serializable]
 public class NodeData{
-    public int id = 0;
-    public string text = "...";
-    public float xPos;
+    public int id = 0; //!< [0..n]. Unique Id for a node, 0 is the root node
+    public string text = "..."; //!< Text displayed on a node
+    public float xPos; //!< xPos, yPos and zPos hold the Positions
     public float yPos;
     public float zPos;
-    public int parentId = -1;
+    public int parentId = -1; //!< [-1..n-1]. the Id of the parent node, -1 if there is no parent
 }

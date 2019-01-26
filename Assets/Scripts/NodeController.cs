@@ -3,65 +3,22 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>  
-///  This class manage all the Nodes  
+///  This class manages all the Nodes. Managing includes selecting nodes,
+///  creating new nodes and connecting nodes.
 /// </summary>  
 public class NodeController : MonoBehaviour
 {
-
-    /// <summary>  
-    ///  Load map from File
-    /// </summary>  
-    public bool LoadData = true;
-
-    /// <summary>  
-    ///  The node Prefab
-    /// </summary>  
-    public GameObject NodePrefab;
-
-    /// <summary>  
-    ///  The root node
-    /// </summary>  
-    public GameObject root = null;
-
-    /// <summary>  
-    ///  The Container for all Nodes
-    /// </summary>  
-    public GameObject NodeContainer;
-
-    /// <summary>  
-    ///  The current selected node 
-    /// </summary>  
-    public GameObject selectedNode;
-
-    /// <summary>  
-    ///  List contain all the nodes in the map
-    /// </summary>  
-    public List<GameObject> Nodes = new List<GameObject>();
-
-    /// <summary>  
-    /// Not selected Node Material
-    /// </summary>  
-    public Material NodeMaterial;
-
-    /// <summary>  
-    /// selected Node Material
-    /// </summary>  
-    public Material selectedNodeMaterial;
-
-    /// <summary>  
-    /// The material of the connection between nodes
-    /// </summary>  
-    public Material lineColor;
-
-    /// <summary>  
-    /// The next not used NodeId
-    /// </summary>  
-    public int idCounter = 0;
-
-
-    /// <summary>  
-    /// Load the map from file at start
-    /// </summary>  
+    public bool LoadData = true; //!< Load map from File
+    public GameObject NodePrefab; //!< The node Prefab
+    public GameObject root = null; //!< The root node
+    public GameObject NodeContainer; //!< The Container for all Nodes
+    public GameObject selectedNode; //!< The current selected node
+    public List<GameObject> Nodes = new List<GameObject>(); //!< List contain all the nodes in the map
+    public Material NodeMaterial; //!< Not selected Node Material
+    public Material selectedNodeMaterial; //!< selected Node Material
+    public Material lineColor; //!< The material of the connection between nodes
+    public int idCounter = 0; //!< The next not used NodeId
+    
     void Start()
     {
         if (LoadData) loadData();
@@ -69,30 +26,29 @@ public class NodeController : MonoBehaviour
 
 
     /// <summary>  
-    /// Select another node
-    /// </summary>  
-    /// <param name="node">The node to select</param>
+    ///  Selects a node
+    ///  
+    ///  @param[in] node The node to select
+    /// </summary>
     public void selectNode(GameObject node)
     {
-        if (selectedNode == null)
-        {
-            selectedNode = node;
-        }
+        if (selectedNode == null) selectedNode = node;
         selectedNode.GetComponent<Node>().setMaterial(NodeMaterial);
         node.GetComponent<Node>().setMaterial(selectedNodeMaterial);
         selectedNode = node;
     }
 
     /// <summary>
-    /// Create LineRenderer between the selected Node and the newNode param
+    ///  Creates a line between the selected Node and a new Node
+    ///  
+    /// @param[in]  newNode     the GameObject of the new Node
+    /// 
+    /// \return     the LineRenderer Component between the two nodes
     /// </summary>
-    /// <param name="newNode">newNode is the GameObject of the new Node</param>
-    /// <returns>return the LineRenderer Component between the two nodes</returns>
     public LineRenderer createLine(GameObject newNode)
     {
         if (selectedNode != null)
         {
-            // GameObject go = new GameObject();
             LineRenderer line = newNode.AddComponent<LineRenderer>();
             line.startWidth = .01f;
             line.endWidth = .01f;
@@ -106,79 +62,29 @@ public class NodeController : MonoBehaviour
 
 
     /// <summary>
-    /// Calculate which connect point to use to connect to another node
+    ///   Calculate which connect point to use to connect to another node
+    ///   
+    /// @param[in]  node1   The node which we calculate the connect point for
+    /// @param[in]  node2   The other node
+    /// 
+    /// \return     the position of the correct Connection Point
     /// </summary>
-    /// <param name="node1">The node which we calculate the connect point for</param>
-    /// <param name="node2">The other node</param>
-    /// <returns>return the position of the correct Connect Point</returns>
     public static Vector3 getConnectsPoint(GameObject node1, GameObject node2)
     {
         float distUp = Vector3.Distance(node1.GetComponent<Node>().ConnectsPointUp.transform.position, node2.transform.position);
         float distDown = Vector3.Distance(node1.GetComponent<Node>().ConnectsPointDown.transform.position, node2.transform.position);
         float distLeft = Vector3.Distance(node1.GetComponent<Node>().ConnectsPointLeft.transform.position, node2.transform.position);
         float distRight = Vector3.Distance(node1.GetComponent<Node>().ConnectsPointRight.transform.position, node2.transform.position);
+
         List<float> list = new List<float> { distUp, distDown, distLeft, distRight };
         float myMin = list.Min();
-        if (myMin == distUp)
-        {
-            return node1.GetComponent<Node>().ConnectsPointUp.transform.position;
-        }
-        else if (myMin == distDown)
-        {
-            return node1.GetComponent<Node>().ConnectsPointDown.transform.position;
-        }
-        else if (myMin == distLeft)
-        {
-            return node1.GetComponent<Node>().ConnectsPointLeft.transform.position;
-        }
-        else
-        {
-            return node1.GetComponent<Node>().ConnectsPointRight.transform.position;
-        }
+
+        if (myMin == distUp) return node1.GetComponent<Node>().ConnectsPointUp.transform.position;
+        else if (myMin == distDown) return node1.GetComponent<Node>().ConnectsPointDown.transform.position;
+        else if (myMin == distLeft) return node1.GetComponent<Node>().ConnectsPointLeft.transform.position;
+        else return node1.GetComponent<Node>().ConnectsPointRight.transform.position;
 
     }
-
-    /** public static Vector3 getConnectsPoint(GameObject node1, GameObject node2)
-   {
-       Vector3 relativePoint = node1.transform.InverseTransformPoint(node2.transform.position);
-       if (relativePoint.x > 0)
-       {
-           Debug.Log("Right");
-           if (relativePoint.y > 0)
-           {
-               Debug.Log("Above");
-               if (relativePoint.x > relativePoint.y) return node1.GetComponent<Node>().ConnectsPointRight.transform.position;
-               else return node1.GetComponent<Node>().ConnectsPointUp.transform.position;
-           }
-           else
-           {
-               Debug.Log("Below");
-               if (relativePoint.x > -relativePoint.y) return node1.GetComponent<Node>().ConnectsPointRight.transform.position;
-               else return node1.GetComponent<Node>().ConnectsPointDown.transform.position;
-           }
-       }
-       else
-       {
-           Debug.Log("Left");
-           if (relativePoint.y > 0)
-           {
-               Debug.Log("Above");
-               if (-relativePoint.x > relativePoint.y) return node1.GetComponent<Node>().ConnectsPointLeft.transform.position;
-               else return node1.GetComponent<Node>().ConnectsPointUp.transform.position;
-           }
-           else
-           {
-               Debug.Log("Below");
-               if (-relativePoint.x > -relativePoint.y) return node1.GetComponent<Node>().ConnectsPointLeft.transform.position;
-               else return node1.GetComponent<Node>().ConnectsPointDown.transform.position;
-           }
-       }
-
-     
-
-}   **/
-
-    // Load Save Data
 
     /// <summary>  
     ///  This function initiates the loading process by first
@@ -188,18 +94,16 @@ public class NodeController : MonoBehaviour
     void loadData()
     {
         List<NodeData> newData = DataController.Instance.Load();
-        if (newData != null)
-        {
-            createLoadedNodes(newData);
-        }
+        if (newData != null) createLoadedNodes(newData);
     }
 
 
     /// <summary>  
     ///   This recursive function traverses the tree of
     ///   nodes and creates a map from it.
-    /// </summary>  
-    /// <param name="d">list with all the loaded nodes data</param>
+    ///   
+    /// @param[in] d   the List of Nodes that should be displayed
+    /// </summary>
     void createLoadedNodes(List<NodeData> d)
     {
         foreach (NodeData n in d)
@@ -231,17 +135,15 @@ public class NodeController : MonoBehaviour
 
     /// <summary>  
     ///  Search for node using the node id
+    ///  
+    /// @param[in] id the id of the Node you want to find
+    ///   \return    the node with the entered id or null
     /// </summary>  
-    /// <param name="id">The node id</param>
-    /// <returns>The node GameObject</returns>
     GameObject findNodeById(int id)
     {
         foreach (GameObject node in Nodes)
         {
-            if (node.GetComponent<Node>().data.id == id)
-            {
-                return node;
-            }
+            if (node.GetComponent<Node>().data.id == id) return node;
         }
         return null;
     }
@@ -252,11 +154,6 @@ public class NodeController : MonoBehaviour
     /// </summary>  
     void OnDestroy()
     {
-        Debug.Log("onDestury");
-        Debug.Log("onDestury data size" + DataController.Instance.data.Count);
         DataController.Instance.Save();
     }
-
-
-
 }

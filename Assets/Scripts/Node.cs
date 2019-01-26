@@ -5,63 +5,19 @@ using UnityEngine.UI;
 
 public class Node : MonoBehaviour
 {
-    /// <summary>  
-    /// Node data to save later to a file
-    /// </summary> 
-    public NodeData data = new NodeData();
+    public NodeData data = new NodeData(); //!< Node data to save later to a file
+    public GameObject parent = null; //!< Node parent GameObject
+    public List<GameObject> children = new List<GameObject>(); //!< Node children GameObjects List
+    public Text UIText; //!< Node name as Text UI
+    public GameObject cube; //!< The node cube GameObject
 
-    /// <summary>  
-    /// Node parent GameObject
-    /// </summary> 
-    public GameObject parent = null;
+    public GameObject ConnectsPointUp; //!< Connects Point Up
+    public GameObject ConnectsPointDown; //!< Connects Point Down
+    public GameObject ConnectsPointLeft; //!< Connects Point Left
+    public GameObject ConnectsPointRight; //!< Connects Point Right
 
-    /// <summary>  
-    /// Node children GameObjects List
-    /// </summary> 
-    public List<GameObject> children = new List<GameObject>();
+    private Transform camera; //!< The VR camera
 
-    /// <summary>  
-    /// Node name as Text UI
-    /// </summary> 
-    public Text UIText;
-
-    /// <summary>  
-    /// The node cube GameObject
-    /// </summary> 
-    public GameObject cube;
-
-    //ConnectsPoints
-
-    /// <summary>  
-    /// Connects Point Up
-    /// </summary> 
-    public GameObject ConnectsPointUp;
-
-    /// <summary>  
-    /// Connects Point Down
-    /// </summary> 
-    public GameObject ConnectsPointDown;
-
-    /// <summary>  
-    /// Connects Point Left
-    /// </summary> 
-    public GameObject ConnectsPointLeft;
-
-    /// <summary>  
-    /// Connects Point Right
-    /// </summary> 
-    public GameObject ConnectsPointRight;
-
-
-    /// <summary>  
-    /// The VR camera
-    /// </summary> 
-    private Transform camera;
-
-
-    /// <summary>  
-    /// Initialization
-    /// </summary> 
     void Start()
     {
         camera = Camera.main.transform;
@@ -70,7 +26,7 @@ public class Node : MonoBehaviour
     }
 
     /// <summary>  
-    ///  Rotate every frame toward the camera
+    ///  Rotate towards the camera for each new frame
     /// </summary> 
     void Update()
     {
@@ -83,7 +39,7 @@ public class Node : MonoBehaviour
     }
 
     /// <summary>  
-    ///  set node cube Material
+    ///  Sets node cube material
     /// </summary> 
     public void setMaterial(Material m)
     {
@@ -91,7 +47,7 @@ public class Node : MonoBehaviour
     }
 
     /// <summary>  
-    /// Reconnect all connections to the new position
+    ///  Reconnects all connections to the new position
     /// </summary> 
     public void rePostion()
     {
@@ -99,24 +55,19 @@ public class Node : MonoBehaviour
         {
             node.GetComponent<LineRenderer>().SetPosition(0, NodeController.getConnectsPoint(this.gameObject,node));
         }
-        if(parent != null){
-            this.GetComponent<LineRenderer>().SetPosition(1, NodeController.getConnectsPoint(this.gameObject, parent));
-        }
+        if(parent != null) this.GetComponent<LineRenderer>().SetPosition(1, NodeController.getConnectsPoint(this.gameObject, parent));
         resetData();
     }
 
     /// <summary>  
-    /// Save the node data to te data game object to save it later to a file
+    ///  Saves the node data to te data game object to save it later to a file
     /// </summary> 
     public void resetData()
     {
         data.xPos = transform.position.x;
         data.yPos = transform.position.y;
         data.zPos = transform.position.z;
-        if(parent != null)
-        {
-            data.parentId = parent.GetComponent<Node>().data.id;
-        }
+        if(parent != null) data.parentId = parent.GetComponent<Node>().data.id;
     }
 
 
