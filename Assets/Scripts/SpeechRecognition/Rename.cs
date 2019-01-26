@@ -4,63 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>  
-///  This class manage rename node 
+///  This class manages renaming a node
 /// </summary>  
 public class Rename : MonoBehaviour {
 
-    /// <summary>  
-    /// SpeechRecognition instance
-    /// </summary> 
-    public SpeechRecognition SR;
+    public SpeechRecognition SR; //!< SpeechRecognition instance
+    public NodeController ND; //!< The Node Controller in the scene
+    public GameObject UIStage1; //!< The rename UI of the first massage
+    public GameObject UIStage2; //!< The rename UI of the second massage
+    public GameObject UIStage3; //!< The rename UI of the third massage
+    public GameObject UIStageLongText; //!< The rename UI if long text recorded
+    public GameObject UIStageError; //!< The rename UI if error occurred
+    public Text UIStage3Text; //!< The text component for the rename UI of the third message
+    public string text; //!< The node text
+    bool Renaming = false; //!< Renaming is running?
 
     /// <summary>  
-    ///  The Node Controller in the scene
-    /// </summary>  
-    public NodeController ND;
-
-    /// <summary>  
-    ///  The rename UI the first massage
-    /// </summary>  
-    public GameObject UIStage1;
-
-    /// <summary>  
-    ///  The rename UI the second massage
-    /// </summary>  
-    public GameObject UIStage2;
-
-    /// <summary>  
-    ///  The rename UI the third massage
-    /// </summary>  
-    public GameObject UIStage3;
-
-    /// <summary>  
-    ///  The rename UI if long text recorded
-    /// </summary>  
-    public GameObject UIStageLongText;
-
-    /// <summary>  
-    ///  The rename UI if error occurred
-    /// </summary>  
-    public GameObject UIStageError;
-
-    /// <summary>  
-    /// The rename UI the third message text component
-    /// </summary>  
-    public Text UIStage3Text;
-
-    /// <summary>  
-    /// The node text
-    /// </summary>  
-    public string text;
-
-    /// <summary>  
-    /// Renaming is running
-    /// </summary>  
-    bool Renaming = false;
-
-
-    /// <summary>  
-    /// Show Rename UI
+    /// Shows the Rename UI
     /// </summary> 
     public void ShowUIStage () {
         if (!Renaming && ND.selectedNode != null)
@@ -71,7 +31,7 @@ public class Rename : MonoBehaviour {
     }
 
     /// <summary>  
-    /// Start Rename 
+    /// Starts the renaming process
     /// </summary> 
     public void StartRename()
     {
@@ -82,7 +42,7 @@ public class Rename : MonoBehaviour {
     }
 
     /// <summary>  
-    /// Restart Rename
+    /// Restarts the renaming process
     /// </summary> 
     public void restartRename()
     {
@@ -96,7 +56,7 @@ public class Rename : MonoBehaviour {
     }
 
     /// <summary>  
-    /// Get the recorded text
+    /// Gets the recorded text and switches to the correct UI
     /// </summary> 
     public void onResult(string newText)
     {
@@ -111,11 +71,10 @@ public class Rename : MonoBehaviour {
     }
 
     /// <summary>  
-    /// Change the node text with the new text and close renaming window
+    /// Replaces the node text with the new text and closes the renaming window, ending the rename process
     /// </summary> 
     public void save()
     {
-        Debug.Log("Save");
         UIStage1.SetActive(false);
         UIStage2.SetActive(false);
         UIStage3.SetActive(false);
@@ -151,7 +110,7 @@ public class Rename : MonoBehaviour {
     }
 
     /// <summary>  
-    /// close all renaming windows 
+    /// close all renaming windows and stop the rename process
     /// </summary> 
     public void close()
     {

@@ -3,23 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>  
-///  This class manage delete node 
+///  This class manages the deletion of one or multiple nodes
 /// </summary>  
 public class DeleteNode : MonoBehaviour
 {
+    public NodeController ND; //!< The Node Controller in the scene
+    public GameObject UIStage; //!< The delete question UI
 
     /// <summary>  
-    ///  The Node Controller in the scene
-    /// </summary>  
-    public NodeController ND;
-
-    /// <summary>  
-    ///  The delete question UI
-    /// </summary>  
-    public GameObject UIStage;
-
-    /// <summary>  
-    ///  Show the delete question UI
+    ///  Shows the delete question UI
     /// </summary>  
     public void ShowUI()
     {
@@ -27,7 +19,7 @@ public class DeleteNode : MonoBehaviour
     }
 
     /// <summary>  
-    ///  Hide the delete question UI
+    ///  Hides the delete question UI
     /// </summary>  
     public void HideUI()
     {
@@ -35,7 +27,7 @@ public class DeleteNode : MonoBehaviour
     }
 
     /// <summary>  
-    ///  Delete the selected node
+    ///  Deletes the selected node
     /// </summary>  
     public void deleteSelectedNode()
     {
@@ -44,18 +36,17 @@ public class DeleteNode : MonoBehaviour
     }
 
     /// <summary>  
-    ///  Delete node and all its children
-    /// </summary>  
-    /// <param name="node">The node to delete</param>
+    ///  Deletes a node and all its children
+    ///  
+    /// @param[in]  node    The node to delete
+    /// </summary> 
     private void GetChildRecursive(GameObject node)
     {
-         if (null == node)
-            return ;
+        if (node == null) return;
 
         foreach (GameObject child in node.GetComponent<Node>().children)
         {
-            if (null == child)
-                continue;
+            if (child == null) continue;
             //child.gameobject contains the current child you can do whatever you want like add it to an array
             GetChildRecursive(child.gameObject);
             ND.Nodes.Remove(child.gameObject);
@@ -72,5 +63,4 @@ public class DeleteNode : MonoBehaviour
         }
         Destroy(node);
     }
-
 }

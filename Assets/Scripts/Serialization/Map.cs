@@ -6,15 +6,15 @@ using UnityEngine;
 ///  The Node object will manage the data saving to and received from
 ///  the global DataController object. Managing includes converting
 ///  data to the right format to save and setting local variables
-///  of this object to the correct data.This object also initiates
+///  of this object to the correct data. This object also initiates
 ///  the saving and loading processes in the DataController.
 /// </summary> 
 public class Map : MonoBehaviour {
 
-    public GameObject node;
+    public GameObject node; //!< Node prefab to use
 
-    public List<NodeData> localData;
-    public List<GameObject> NodesList = new List<GameObject>();
+    public List<NodeData> localData; //!< temporary, up-to-date, local map data
+    public List<GameObject> NodesList = new List<GameObject>(); //!< list of all nodes
 
     void Start () {
         localData = new List<NodeData>();
@@ -52,7 +52,7 @@ public class Map : MonoBehaviour {
     void loadData()
     {
         List<NodeData> newData = DataController.Instance.Load();
-        updateLocalData(newData); //feeding the function as a param will hopefully make loadData wait for the results.
+        updateLocalData(newData);
     }
 
     /// <summary>  
@@ -60,6 +60,8 @@ public class Map : MonoBehaviour {
     ///  It then initiates the rebuild of the map based on the new data.
     ///  However, in the special case that the map is still completely empty,
     ///  it will first create the root node.
+    ///  
+    ///  @param[in] d   the List of Nodes that should be displayed
     /// </summary> 
     void updateLocalData(List<NodeData> d)
     {
@@ -73,7 +75,7 @@ public class Map : MonoBehaviour {
 
 
     /// <summary>  
-    ///    This function creates the root node.It's id is 0 and it has no parent. It does not yet have children.
+    ///   This function creates the root node. It's id is 0 and it has no parent. It does not yet have children.
     ///   After creating the root node, the map will save.
     /// </summary> 
     void createRoot()
@@ -83,7 +85,7 @@ public class Map : MonoBehaviour {
         root.yPos = 0;
         root.zPos = 0;
         root.id = 0;
-        root.text = "Unity";
+        root.text = "...";
         List<NodeData> l = new List<NodeData>();
         l.Add(root);
         createNode(l);
@@ -91,28 +93,18 @@ public class Map : MonoBehaviour {
     }
 
     /// <summary>  
-    ///   This function deletes the current map and calls the
-    ///   recursive node-creation function.
+    ///   This function calls the recursive node-creation function.
     /// </summary> 
     void rebuildMap()
     {
-        //deleteMap();
         createNode(DataController.Instance.data);
     }
-
-
-    //void deleteMap()
-    //{
-    //    /*
-    //     This function deletes the complete map.
-    //     */
-    //    //find root node (node with id 0)
-    //    //call delete function root
-    //}
 
     /// <summary>  
     ///   This recursive function traverses the tree of 
     ///   nodes and creates a map from it.
+    ///   
+    ///   @param[in]    d   the List of Nodes that should be created
     /// </summary> 
     void createNode(List<NodeData> d)
     {
@@ -130,6 +122,12 @@ public class Map : MonoBehaviour {
         }
     }
 
+    /// <summary>  
+    ///   This function returns the node with the given id
+    ///   
+    ///   @param[in] id the id of the Node you want to find
+    ///   \return    the node with the entered id or null
+    /// </summary> 
     GameObject findNodeById(int id) {
         foreach (GameObject node in NodesList){
             if(node.GetComponent<Node>().data.id == id)
