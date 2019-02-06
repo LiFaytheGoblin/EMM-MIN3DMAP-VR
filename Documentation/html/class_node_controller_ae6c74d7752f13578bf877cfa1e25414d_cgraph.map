@@ -1,0 +1,4 @@
+<map id="NodeController.createLine" name="NodeController.createLine">
+<area shape="rect" id="node1" title="Creates a line between the selected Node and a new Node" alt="" coords="5,13,176,39"/>
+<area shape="rect" id="node2" href="$class_node_controller.html#ad36362ade8e25a5a009abb9e4e2a38a8" title="Calculate which connect point to use to connect to another node" alt="" coords="224,5,408,47"/>
+</map>
